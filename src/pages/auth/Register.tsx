@@ -6,8 +6,34 @@ import Logo from '../../assets/site-logo.svg';
 import LockIcon from '../../assets/lock-icon.svg';
 import video from '../../assets/videos/signup-video.mp4';
 import emailIcon from '../../assets/email-icon.svg';
+import { useForm } from 'react-hook-form';
+
+interface RegisterFormInputs {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 const Register = () => {
+  
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<RegisterFormInputs>();
+
+  const password = watch("password");
+
+  const onSubmit = async (data: RegisterFormInputs) => {
+    try {
+      console.log(data);
+    } catch (error) {
+      console.log("Error: ", error)
+    }
+  };
+
   return (
     <div className="flex h-auto md:h-screen w-full">
       {/* Left side with video background */}
@@ -46,57 +72,108 @@ const Register = () => {
             <p className="text-[#00000080] text-[16px]">Create your account</p>
           </div>
 
-          <div className="mb-[24px] relative">
-            <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">Username</label>
-            <div className="relative">
-              <img src={userIcon} alt="user" className='w-[30px] h-[18px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
-              <input
-                type="text"
-                className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                placeholder="Enter your username"
-              />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-[24px] relative">
+              <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
+                Username
+              </label>
+              <div className="relative">
+                <img src={userIcon} alt="user" className='w-[30px] h-[18px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
+                <input
+                  {...register("username", { 
+                    required: "Username is required",
+                    minLength: {
+                      value: 3,
+                      message: "Username must be at least 3 characters"
+                    }
+                  })}
+                  type="text"
+                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
+                  placeholder="Enter your username"
+                />
+              </div>
+              {errors.username && (
+                <span className="text-red-500 text-sm mt-1">{errors.username.message}</span>
+              )}
             </div>
-          </div>
 
-          <div className="mb-[24px] relative">
-            <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">Email Id</label>
-            <div className="relative">
-              <img src={emailIcon} alt="user" className='w-[30px] h-[20px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
-              <input
-                type="email"
-                className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                placeholder="Enter your email"
-              />
+            <div className="mb-[24px] relative">
+              <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
+                Email
+              </label>
+              <div className="relative">
+                <img src={emailIcon} alt="email" className='w-[30px] h-[20px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
+                <input
+                  {...register("email", { 
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address"
+                    }
+                  })}
+                  type="email"
+                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
+                  placeholder="Enter your email"
+                />
+              </div>
+              {errors.email && (
+                <span className="text-red-500 text-sm mt-1">{errors.email.message}</span>
+              )}
             </div>
-          </div>
-          <div className="relative mb-[24px]">
-            <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">Password</label>
-            <div className="relative">
-              <img src={LockIcon} alt="user" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
-              <input
-                type="password"
-                className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                placeholder="Enter  your password"
-              />
+
+            <div className="relative mb-[24px]">
+              <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
+                Password
+              </label>
+              <div className="relative">
+                <img src={LockIcon} alt="lock" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
+                <input
+                  {...register("password", { 
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters"
+                    }
+                  })}
+                  type="password"
+                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
+                  placeholder="Enter your password"
+                />
+              </div>
+              {errors.password && (
+                <span className="text-red-500 text-sm mt-1">{errors.password.message}</span>
+              )}
             </div>
-          </div>
-          <div className="relative mb-[24px]">
-            <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">Confirm Password</label>
-            <div className="relative">
-              <img src={LockIcon} alt="user" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
-              <input
-                type="password"
-                className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                placeholder="Confirm your password"
-              />
+
+            <div className="relative mb-[24px]">
+              <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <img src={LockIcon} alt="lock" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
+                <input
+                  {...register("confirmPassword", { 
+                    required: "Please confirm your password",
+                    validate: value => 
+                      value === password || "Passwords do not match"
+                  })}
+                  type="password"
+                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
+                  placeholder="Confirm your password"
+                />
+              </div>
+              {errors.confirmPassword && (
+                <span className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</span>
+              )}
             </div>
-          </div>
-          <button
-            className="w-full bg-gradient-to-r from-[#0D3FC6] to-[#3793FF] text-white py-[16px] rounded-[8px] font-medium hover:bg-blue-700 transition-colors cursor-pointer !rounded-button whitespace-nowrap text-[14px] leading-[18px] uppercase"
-            onClick={() => console.log("Login clicked")}
-          >
-            SIgn up
-          </button>
+
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-[#0D3FC6] to-[#3793FF] text-white py-[16px] rounded-[8px] font-medium hover:bg-blue-700 transition-colors cursor-pointer !rounded-button whitespace-nowrap text-[14px] leading-[18px] uppercase"
+            >
+              SIGN UP
+            </button>
+          </form>
 
           <div className="flex items-center my-[25px] w-full max-w-[290px] mx-auto">
             <div className="flex-1 border-t border-[#1C1C1C33]"></div>
