@@ -11,7 +11,7 @@ function App() {
       </nav> */}
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/about" element={<Register />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );

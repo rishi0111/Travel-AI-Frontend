@@ -4,7 +4,9 @@ import userIcon from '../../assets/user-icon.svg';
 import googleIcon from '../../assets/google-icon.svg';
 import facebookIcon from '../../assets/facebook-icon.svg';
 import airplane from '../../assets/plane-icon.svg';
-interface User {
+import Logo from '../../assets/site-logo.svg';
+import LockIcon from '../../assets/lock-icon.svg';
+  interface User {
   displayName: string;
   photoURL: string;
   email: string;
@@ -82,8 +84,10 @@ const Login = () => {
             Your browser does not support the video tag.
           </video>
         </div>
-        <div className='absolute'>
-          
+        <div className='absolute left-[50%] translate-x-[-50%] text-center w-full top-[60px] max-w-[500px] px-[10px]'>
+            <img src={Logo} alt="Logo" className='mx-auto'/>
+            <p className='text-[16px] leading-[24px] text-[#FFFFFF] font-normal mt-[10px]'>Your next adventure is calling!<br/>
+            Log in and uncover the best travel deals in seconds. </p>
         </div>
       </div>
 
@@ -113,7 +117,7 @@ const Login = () => {
           <div className="relative">
             <label className="block text-sm text-[#0D9BC6] mb-1 absolute top-[-10px] left-[20px] bg-white px-2 z-10">Password</label>
             <div className="relative">
-              <img src={userIcon} alt="user" className='w-[20px] h-[20px] absolute left-[30px] top-1/2 transform -translate-y-1/2'/>
+              <img src={LockIcon} alt="user" className='w-[20px] h-[20px] absolute left-[30px] top-1/2 transform -translate-y-1/2'/>
               <input
                 type="password"
                 className="w-full py-[17px] px-[18px] ps-[60px] text-[14px] text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
@@ -154,7 +158,7 @@ const Login = () => {
 
           <div className="text-center text-[#05073C] font-normal mt-[30px] text-[14px] leading-[18px]">
             Don't have an account? {" "}
-            <a href="#" className="text-[#0D3FC6] font-semibold">
+            <a href="/register" className="text-[#0D3FC6] font-semibold">
               Register Now
             </a>
           </div>
