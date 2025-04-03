@@ -1,6 +1,41 @@
 import Sidebar from "../../components/chat/Sidebar";
 import ChatInput from "../../components/chat/ChatInput";
 import AiAssistantIcon from "../../assets/ai-assistant-icon.svg";
+
+const destinations = [
+    {
+        id: 1,
+        name: "7-Day Bali Package",
+        image: "https://public.readdy.ai/ai/img_res/21ddc9d57a133e634320125b872e4ce5.jpg"
+    },
+    {
+        id: 2,
+        name: "5-Day Paris Escape",
+        image: "https://public.readdy.ai/ai/img_res/674827b09101ef2f707ad73140066183.jpg"
+    },
+    {
+        id: 3,
+        name: "8-Day Greek Islands Cruise",
+        image: "https://public.readdy.ai/ai/img_res/4cf72f86bec4cc1e642115a042413a0a.jpg"
+    },
+    {
+        id: 4,
+        name: "5-Day Safari Adventure",
+        image: "https://public.readdy.ai/ai/img_res/ffecd45ed83b051bfabff3069f3c40fa.jpg"
+    },
+    {
+        id: 5,
+        name: "5-Day Safari Adventure",
+        image: "https://public.readdy.ai/ai/img_res/ffecd45ed83b051bfabff3069f3c40fa.jpg"
+    },
+    {
+        id: 6,
+        name: "5-Day Safari Adventure",
+        image: "https://public.readdy.ai/ai/img_res/ffecd45ed83b051bfabff3069f3c40fa.jpg"
+    }     
+]   
+
+
 const Chat = () => {
   return (
     <div className="flex">
@@ -48,97 +83,25 @@ const Chat = () => {
                     </div>
                 </div>
                 {/* Popular Destinations */}
-                <div className="px-8 py-4 mb-[20px]">
+                <div className="py-4 mb-[20px]">
                     <h2 className="text-[20px] leading-[24px] font-semibold mb-[20px] text-[#05073C]">Popular Destinations</h2>
-                    <div className="w-full overflow-x-auto">
+                    <div className="w-[100%] overflow-x-auto">
                         <div className="flex gap-[16px]">
-                            {/* Bali Package */}
-                            <div className="w-full max-w-[290px] bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
-                                <div className="h-48 overflow-hidden">
-                                    <img
-                                        src="https://public.readdy.ai/ai/img_res/21ddc9d57a133e634320125b872e4ce5.jpg"
+                            {destinations.map((destination) => (
+                                <div key={destination.id} className="w-full min-w-[298px] bg-white rounded-lg shadow-md  cursor-pointer">
+                                    <div className="h-48 overflow-hidden">
+                                        <img
+                                        src={destination.image}
                                         alt="Bali Beach"
                                         className="w-full h-full object-cover object-top"
                                     />
                                 </div>
                                 <div className="p-4">
-                                    <h3 className="text-lg font-semibold">7-Day Bali Package</h3>
+                                    <h3 className="text-lg font-semibold">{destination.name}</h3>
                                 </div>
                             </div>
-                            {/* Paris */}
-                            <div className="w-full max-w-[290px] bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
-                                <div className="h-48 overflow-hidden">
-                                    <img
-                                        src="https://public.readdy.ai/ai/img_res/674827b09101ef2f707ad73140066183.jpg"
-                                        alt="Paris"
-                                        className="w-full h-full object-cover object-top"
-                                    />
-                                </div>
-                                <div className="p-4">
-                                    <h3 className="text-lg font-semibold">5-Day Paris Escape</h3>
-                                </div>
-                            </div>
-                            {/* Greek Islands */}
-                            <div className="w-full max-w-[290px] bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
-                                <div className="h-48 overflow-hidden">
-                                    <img
-                                        src="https://public.readdy.ai/ai/img_res/4cf72f86bec4cc1e642115a042413a0a.jpg"
-                                        alt="Greek Islands"
-                                        className="w-full h-full object-cover object-top"
-                                    />
-                                </div>
-                                <div className="p-4">
-                                    <h3 className="text-lg font-semibold">
-                                        8-Day Greek Islands Cruise
-                                    </h3>
-                                </div>
-                            </div>
-                            {/* Safari */}
-                            <div className="w-full max-w-[290px] bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
-                                <div className="h-48 overflow-hidden">
-                                    <img
-                                        src="https://public.readdy.ai/ai/img_res/ffecd45ed83b051bfabff3069f3c40fa.jpg"
-                                        alt="African Safari"
-                                        className="w-full h-full object-cover object-top"
-                                    />
-                                </div>
-                                <div className="p-4">
-                                    <h3 className="text-lg font-semibold">
-                                        5-Day Safari Adventure
-                                    </h3>
-                                </div>
-                            </div>
-                            {/* Safari */}
-                            <div className="w-full max-w-[290px] bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
-                                <div className="h-48 overflow-hidden">
-                                    <img
-                                        src="https://public.readdy.ai/ai/img_res/ffecd45ed83b051bfabff3069f3c40fa.jpg"
-                                        alt="African Safari"
-                                        className="w-full h-full object-cover object-top"
-                                    />
-                                </div>
-                                <div className="p-4">
-                                    <h3 className="text-lg font-semibold">
-                                        5-Day Safari Adventure
-                                    </h3>
-                                </div>
-                            </div>
-                            
-                            {/* Safari */}
-                            <div className="w-full max-w-[290px] bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
-                                <div className="h-48 overflow-hidden">
-                                    <img
-                                        src="https://public.readdy.ai/ai/img_res/ffecd45ed83b051bfabff3069f3c40fa.jpg"
-                                        alt="African Safari"
-                                        className="w-full h-full object-cover object-top"
-                                    />
-                                </div>
-                                <div className="p-4">
-                                    <h3 className="text-lg font-semibold">
-                                        5-Day Safari Adventure
-                                    </h3>
-                                </div>
-                            </div>
+                            ))}
+                          
                         </div>
                     </div>
                 </div>
