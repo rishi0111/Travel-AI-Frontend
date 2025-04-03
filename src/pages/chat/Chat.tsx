@@ -38,11 +38,11 @@ const destinations = [
 
 const Chat = () => {
   return (
-    <div className="flex">
+    <div className="flex overflow-hidden">
     {/* Sidebar */}
     <Sidebar />
     {/* Main Content */}
-    <div className="flex-1 ms-[275px]">
+    <div className="w-[80%]">
         <div className="h-[calc(100vh-95px)] overflow-y-auto py-[30px]">
             {/* Hero Section */}
             <div className="relative h-[400px] overflow-hidden">

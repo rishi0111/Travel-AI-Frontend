@@ -10,7 +10,7 @@ import PrivacyPolicyIcon from "../../assets/privacy-policy-icon.svg";
 
 const Sidebar = () => {
   return (
-    <div className="w-[275px] h-screen border-r border-gray-200 bg-white fixed top-0 left-0 z-10">
+    <div className="w-[20%] h-screen border-r border-gray-200 bg-white z-10">
         <div className="py-[13px] px-[16px] flex items-center justify-between border-b border-[#E5E7EB]">
           <div className="flex items-center">
             <img src={Logo} alt="Logo" className="w-[162px]" />
