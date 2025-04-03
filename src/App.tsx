@@ -4,6 +4,7 @@ import Register from './pages/auth/Register';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import ChangePassword from './pages/auth/ChangePassword';
 import OTP from './pages/auth/OtpVerification';
+import Chat from './pages/chat/chat';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/otp-verification" element={<OTP />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </Router>
   );
