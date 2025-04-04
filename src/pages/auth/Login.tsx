@@ -8,7 +8,7 @@ import Logo from '../../assets/site-logo.svg';
 import LockIcon from '../../assets/lock-icon.svg';
 import video from '../../assets/videos/login-video.mp4';
 import { Link } from 'react-router-dom';
-import CryptoJS from 'crypto-js';
+import { encryptData } from '../../utils/ecryptData';
 
 interface LoginFormInputs {
   email: string;
@@ -16,8 +16,6 @@ interface LoginFormInputs {
 }
 
 const Login = () => {
-
-
   const {
     register,
     handleSubmit,
@@ -26,20 +24,8 @@ const Login = () => {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const secretKey = "my-secret-key";
-
-      const encryptedData = CryptoJS.AES.encrypt(
-        JSON.stringify(data),
-        secretKey
-      ).toString();
-      
-      const token = CryptoJS.enc.Base64.stringify(
-        CryptoJS.enc.Utf8.parse(`${encryptedData}`)
-      );
-
+      const encryptedData = encryptData(data);
       console.log("Encrypted Data:", encryptedData);
-      console.log("Generated Token:", token);
-      // const result = await loginUser(data).unwrap();
       console.log("Result: ", data)
     } catch (error) {
       console.log("Error: ", error)
