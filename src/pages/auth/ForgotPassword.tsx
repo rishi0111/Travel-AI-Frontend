@@ -2,7 +2,7 @@ import airplane from "../../assets/plane-icon.svg";
 import Logo from "../../assets/site-logo.svg";
 import video from "../../assets/videos/forgot-pass-video.mp4";
 import emailIcon from "../../assets/email-icon.svg";
-
+import AuthButton from "./AuthButton";
 const ForgotPassword = () => {
   return (
     <div className="flex md:h-screen h-auto w-full">
@@ -61,11 +61,7 @@ const ForgotPassword = () => {
               />
             </div>
           </div>
-          <button
-            className="w-full bg-gradient-to-r from-[#0D3FC6] to-[#3793FF] text-white py-[16px] rounded-[8px] font-medium hover:bg-blue-700 transition-colors cursor-pointer !rounded-button whitespace-nowrap text-[14px] leading-[18px] uppercase"
-          >
-            RESET PASSWORD
-          </button>
+          <AuthButton>RESET PASSWORD</AuthButton>
 
           <div className="flex items-center my-[25px] w-full max-w-[290px] mx-auto">
             <div className="flex-1 border-t border-[#1C1C1C33]"></div>

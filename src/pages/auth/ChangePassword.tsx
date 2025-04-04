@@ -3,6 +3,8 @@ import Logo from "../../assets/site-logo.svg";
 import video from "../../assets/videos/change-pass-video.mp4";
 import LockIcon from "../../assets/lock-icon.svg";
 import PasswordModal from "../../components/auth/PasswordModal";
+import AuthButton from "./AuthButton";
+
 const ChangePassword = () => {
   return (
     <div className="flex md:h-screen h-auto w-full">
@@ -98,9 +100,7 @@ const ChangePassword = () => {
               </div>
             </div>
 
-            <button className="w-full bg-gradient-to-r from-[#0D3FC6] to-[#3793FF] text-white py-[16px] rounded-[8px] font-medium hover:bg-blue-700 transition-colors cursor-pointer !rounded-button whitespace-nowrap text-[14px] leading-[18px] uppercase">
-              CHANGE YOUR PASSWORD
-            </button>
+            <AuthButton>CHANGE YOUR PASSWORD</AuthButton>
           </div>
         </div>
       </div>

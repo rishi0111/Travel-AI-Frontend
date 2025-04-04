@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form';
-import { signInWithGoogle, signInWithFacebook } from '../../utils/firebaseConfig';
 import userIcon from '../../assets/user-icon.svg';
-import googleIcon from '../../assets/google-icon.svg';
-import facebookIcon from '../../assets/facebook-icon.svg';
 import airplane from '../../assets/plane-icon.svg';
 import Logo from '../../assets/site-logo.svg';
 import LockIcon from '../../assets/lock-icon.svg';
 import video from '../../assets/videos/login-video.mp4';
 import { Link } from 'react-router-dom';
 import { encryptData } from '../../utils/ecryptData';
+import SocialLogin from '../../components/auth/SocialLogin';
+import AuthButton from './AuthButton';
+import InputField from '../../components/common/InputField';
 
 interface LoginFormInputs {
   email: string;
@@ -27,30 +27,6 @@ const Login = () => {
       const encryptedData = encryptData(data);
       console.log("Encrypted Data:", encryptedData);
       console.log("Result: ", data)
-    } catch (error) {
-      console.log("Error: ", error)
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithGoogle();
-      if (result) {
-        const user = result.user;
-        console.log("User: ", user)
-      }
-    } catch (error) {
-      console.log("Error: ", error)
-    }
-  };
-
-  const handleFacebookSignIn = async () => {
-    try {
-      const result = await signInWithFacebook();
-      if (result) {
-        const user = result.user;
-        console.log("User: ", user)
-      }
     } catch (error) {
       console.log("Error: ", error)
     }
@@ -94,53 +70,39 @@ const Login = () => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-[24px] relative">
-              <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
-                Email
-              </label>
-              <div className="relative">
-                <img src={userIcon} alt="user" className='w-[30px] h-[18px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
-                <input
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address"
-                    }
-                  })}
-                  type="email"
-                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                  placeholder="Enter email"
-                />
-              </div>
-              {errors.email && (
-                <span className="text-red-500 text-sm mt-1">{errors.email.message}</span>
-              )}
-            </div>
+            <InputField<LoginFormInputs>
+              label="Email"
+              name="email"
+              type="email"
+              placeholder="Enter email"
+              icon={userIcon}
+              register={register}
+              error={errors.email}
+              validation={{
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address"
+                }
+              }}
+            />
 
-            <div className="relative">
-              <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
-                Password
-              </label>
-              <div className="relative">
-                <img src={LockIcon} alt="lock" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
-                <input
-                  {...register("password", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 6,
-                      message: "Password must be at least 6 characters"
-                    }
-                  })}
-                  type="password"
-                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                  placeholder="Enter your password"
-                />
-              </div>
-              {errors.password && (
-                <span className="text-red-500 text-sm mt-1">{errors.password.message}</span>
-              )}
-            </div>
+            <InputField<LoginFormInputs>
+              label="Password"
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+              icon={LockIcon}
+              register={register}
+              error={errors.password}
+              validation={{
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters"
+                }
+              }}
+            />
 
             <div className="flex justify-end my-[23px]">
               <a href="/forgot-password" className="text-[14px] text-[#00000080] hover:text-[#0D3FC6]">
@@ -148,12 +110,7 @@ const Login = () => {
               </a>
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-[#0D3FC6] to-[#3793FF] text-white py-[16px] rounded-[8px] font-medium hover:bg-blue-700 transition-colors cursor-pointer !rounded-button whitespace-nowrap text-[14px] leading-[18px] uppercase"
-            >
-              LOGIN
-            </button>
+            <AuthButton>LOGIN</AuthButton>
           </form>
 
           <div className="flex items-center my-[25px] w-full max-w-[290px] mx-auto">
@@ -162,16 +119,7 @@ const Login = () => {
             <div className="flex-1 border-t border-[#1C1C1C33]"></div>
           </div>
 
-          <div className="flex gap-4 justify-center">
-            <button onClick={handleGoogleSignIn} className="flex items-center justify-center gap-2 border border-[#E0E2E9] rounded-[8px] px-[12px] py-[14px] hover:bg-gray-50 cursor-pointer !rounded-button whitespace-nowrap w-[140px]">
-              <img src={googleIcon} alt="Google" className="w-[20px] h-[20px]" />
-              <span className='text-[14px] leading-[18px] text-[#171725] font-semibold'>Google</span>
-            </button>
-            <button onClick={handleFacebookSignIn} className="flex items-center justify-center gap-2 border border-[#E0E2E9] rounded-[8px] px-[12px] py-[14px] hover:bg-gray-50 cursor-pointer !rounded-button whitespace-nowrap w-[140px]">
-              <img src={facebookIcon} alt="Facebook" className="w-[20px] h-[20px]" />
-              <span className='text-[14px] leading-[18px] text-[#171725] font-semibold'>Facebook</span>
-            </button>
-          </div>
+          <SocialLogin />
 
           <div className="text-center text-[#05073C] font-normal mt-[30px] text-[14px] leading-[18px]">
             Don't have an account? {" "}
@@ -179,9 +127,9 @@ const Login = () => {
               Register Now
             </Link>
           </div>
-        </div >
-      </div >
-    </div >
+        </div>
+      </div>
+    </div>
   );
 };
 
