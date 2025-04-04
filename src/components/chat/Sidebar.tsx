@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Logo from "../../assets/chat-logo.svg";
 import EditIcon from "../../assets/edit-icon.svg";
 import AiChatIcon from "../../assets/ai-chat-icon.svg";
@@ -9,9 +10,31 @@ import TermsIcon from "../../assets/terms-icon.svg";
 import PrivacyPolicyIcon from "../../assets/privacy-policy-icon.svg";
 
 const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <div className="w-[20%] h-screen border-r border-gray-200 bg-white z-10">
-        <div className="py-[13px] px-[16px] flex items-center justify-between border-b border-[#E5E7EB]">
+    <div>
+      {/* Toggle Button for Mobile */}
+      <button
+        className="md:hidden flex flex-col justify-center items-center gap-[4px] fixed top-4 right-4 z-20 bg-[#E7ECF9] h-[34px] w-[34px] rounded-full"
+        onClick={toggleSidebar}
+      >
+        <span className="block w-[18px] h-[2px] bg-gray-500"></span>
+        <span className="block w-[18px] h-[2px] bg-gray-500"></span>
+        <span className="block w-[18px] h-[2px] bg-gray-500"></span>
+      </button>
+
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 left-0 h-full w-[80%] md:w-[275px] bg-white z-10 overflow-hidden transition-transform transform ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 border-r border-gray-200`}
+      >
+        <div className="py-[13px] px-[16px] flex items-center justify-between border-b border-[#E5E7EB] gap-[10px]">
           <div className="flex items-center">
             <img src={Logo} alt="Logo" className="w-[162px]" />
           </div>
@@ -99,7 +122,7 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-
+    </div>
   )
 }
 
