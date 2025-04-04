@@ -17,11 +17,11 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-[100%] max-w-[350px] md:max-w-auto md:w-[275px] absolute">
+    <div className="w-[100%] max-w-[270px] sm:max-w-[350px] md:max-w-auto md:w-[275px] absolute">
       {/* Toggle Button for Mobile */}
       {isOpen ? (
       <button
-        className="absolute md:hidden flex flex-col justify-center items-center gap-[4px] top-[50px] right-[-30px] z-[999] bg-[#ffffff] h-[34px] w-[34px] rounded-[0px_10px_10px_0px]"
+        className="absolute md:hidden flex flex-col justify-center items-center gap-[4px] top-[50px] right-[-34px] sm:right-[-34px] z-[999] bg-[#ffffff] h-[34px] w-[34px] rounded-[0px_10px_10px_0px]"
         onClick={toggleSidebar}
       >
             <span className="block w-[20px] h-[2px] bg-black rotate-45"></span>
@@ -29,12 +29,12 @@ const Sidebar = () => {
       </button>
       ) : (
         <button
-        className="md:hidden flex flex-col justify-center items-center gap-[4px] fixed top-4 right-4 z-[99] bg-[#0D3FC6] h-[34px] w-[34px] rounded-full"
+        className="md:hidden flex flex-col justify-center items-center gap-[4px] fixed top-4 right-4 z-[99] bg-[#e7ecf9] h-[34px] w-[34px] rounded-[8px]"
         onClick={toggleSidebar}
         >
-            <span className="block w-[18px] h-[2px] bg-white"></span>
-            <span className="block w-[18px] h-[2px] bg-white"></span>
-            <span className="block w-[18px] h-[2px] bg-white"></span>
+            <span className="block w-[18px] h-[2px] bg-[#0D3FC6]"></span>
+            <span className="block w-[18px] h-[2px] bg-[#0D3FC6]"></span>
+            <span className="block w-[18px] h-[2px] bg-[#0D3FC6]"></span>
         </button>
       )}
 
@@ -43,7 +43,7 @@ const Sidebar = () => {
       )}
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0  h-full w-[100%] max-w-[350px] md:max-w-auto md:w-[275px] bg-white z-[99] overflow-hidden transition-transform transform ${
+        className={`fixed top-0 left-0  h-full w-[100%] max-w-[270px] sm:max-w-[350px] md:max-w-auto md:w-[275px] bg-white z-[99] overflow-hidden transition-transform transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 border-r border-gray-200`}
       >

@@ -1,4 +1,5 @@
 import Sidebar from "../../components/chat/Sidebar";
+import History from "../../components/chat/History";
 import ChatInput from "../../components/chat/ChatInput";
 import AiAssistantIcon from "../../assets/ai-assistant-icon.svg";
 import SelectIcon from "../../assets/arrow-bottom.svg";
@@ -46,38 +47,39 @@ const destinations = [
 
 const Chat = () => {
     const [selectedPayment, setSelectedPayment] = useState<string>("credit");
-  const [cardNumber, setCardNumber] = useState<string>("");
-  const [cardName, setCardName] = useState<string>("");
-  const [expiryDate, setExpiryDate] = useState<string>("");
-  const [cvv, setCvv] = useState<string>("");
-  const [showTravelerModal, setShowTravelerModal] = useState(false);
-const [adults, setAdults] = useState<number>(3);
-  const [youth, setYouth] = useState<number>(2);
-  const [children, setChildren] = useState<number>(4);
-const handleIncrement = (type: string) => {
-    if (type === "adult") setAdults(adults + 1);
-    if (type === "youth") setYouth(youth + 1);
-    if (type === "children") setChildren(children + 1);
-  };
-  const handleDecrement = (type: string) => {
-    if (type === "adult" && adults > 0) setAdults(adults - 1);
-    if (type === "youth" && youth > 0) setYouth(youth - 1);
-    if (type === "children" && children > 0) setChildren(children - 1);
-  };
-const totalTravelers = adults + youth + children;
+    const [cardNumber, setCardNumber] = useState<string>("");
+    const [cardName, setCardName] = useState<string>("");
+    const [expiryDate, setExpiryDate] = useState<string>("");
+    const [cvv, setCvv] = useState<string>("");
+    const [showTravelerModal, setShowTravelerModal] = useState(false);
+    const [adults, setAdults] = useState<number>(3);
+    const [youth, setYouth] = useState<number>(2);
+    const [children, setChildren] = useState<number>(4);
+    const handleIncrement = (type: string) => {
+        if (type === "adult") setAdults(adults + 1);
+        if (type === "youth") setYouth(youth + 1);
+        if (type === "children") setChildren(children + 1);
+    };
+    const handleDecrement = (type: string) => {
+        if (type === "adult" && adults > 0) setAdults(adults - 1);
+        if (type === "youth" && youth > 0) setYouth(youth - 1);
+        if (type === "children" && children > 0) setChildren(children - 1);
+    };
+    const totalTravelers = adults + youth + children;
 
-  const handlePaymentChange = (method: string) => {
-    setSelectedPayment(method);
-  };
+    const handlePaymentChange = (method: string) => {
+        setSelectedPayment(method);
+    };
   
   const [activeTab, setActiveTab] = useState("cheapest");
+  const [isHistoryOpen, setIsHistoryOpen] = useState(true); // New state for history
   return (
     <div className="flex">
     {/* Sidebar */}
     <Sidebar />
     {/* Main Content */}
-    <div className="flex-1 md:ms-[275px] w-[-webkit-fill-available]">
-        <div className="h-[calc(100vh-95px)] overflow-y-auto py-[30px]">
+    <div className={`flex-1 md:ms-[275px]  ${isHistoryOpen ? 'w-[calc(100vw-600px)]' : 'w-[-webkit-fill-available]'}`}>
+        <div className="h-[calc(100vh-95px)] overflow-y-auto py-[40px] pt-[60px] sm:pt-[30px] sm:py-[30px]">
             {/* Hero Section */}
             <div className="relative h-[200px] lg:h-[400px] overflow-hidden">
                 <div className="relative z-10 h-full flex flex-col justify-center px-4 lg:px-16 text-center">
@@ -894,6 +896,7 @@ const totalTravelers = adults + youth + children;
         </div>
       <ChatInput />
     </div>
+    <History />
   </div>
 
   );
