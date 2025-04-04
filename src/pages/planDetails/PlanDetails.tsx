@@ -13,13 +13,15 @@ import DisclaimerIcon from "../../assets/disclaimer-icon.svg";
 import CheckIcon from "../../assets/green-check-icon.svg";
 import CrossIcon from "../../assets/red-cross-icon.svg";
 import RatingIcon from "../../assets/rating-star.svg";
-
+import ContactUsModal from "../../components/chat/ContactUsModal";
+import SignUpModal from "../../components/chat/SignUpModal";
+import SignInModal from "../../components/chat/SignInModal";
 const PlanDetails = () => {
   const [activeTab, setActiveTab] = useState("overview");
   return (
     <div className="flex ">
       <Sidebar />
-      <div className="md:ms-[275px] h-screen overflow-y-auto ">
+      <div className="md:ms-[275px] h-screen overflow-y-auto flex-1">
         <div className=" py-[15px] sm:py-[44px] max-w-[1075px] mx-auto sm:px-[20px] px-[10px]">
           <a
             href="#"
@@ -152,6 +154,9 @@ const PlanDetails = () => {
                       <button className="w-full py-[8px] text-[14px] cursor-pointer leading-[20px] font-normal text-white bg-[#1A339B] rounded-[4px]">
                         Contact Us
                       </button>
+                      <ContactUsModal />
+                      {/* <SignUpModal /> */}
+                      {/* <SignInModal /> */}
                     </div>
                   </div>
                 </div>
