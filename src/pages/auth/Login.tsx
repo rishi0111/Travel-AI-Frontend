@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { signInWithGoogle, signInWithFacebook } from '../../utils/firebaseConfig';
 import userIcon from '../../assets/user-icon.svg';
 import googleIcon from '../../assets/google-icon.svg';
@@ -8,35 +8,53 @@ import Logo from '../../assets/site-logo.svg';
 import LockIcon from '../../assets/lock-icon.svg';
 import video from '../../assets/videos/login-video.mp4';
 import { Link } from 'react-router-dom';
+import CryptoJS from 'crypto-js';
 
-interface User {
-  displayName: string;
-  photoURL: string;
+interface LoginFormInputs {
   email: string;
-  uid: string;
-  emailVerified: boolean;
-  phoneNumber: string | null;
+  password: string;
 }
 
 const Login = () => {
-  const [user, setUser] = useState<User | null>(null);
+
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormInputs>();
+
+  const onSubmit = async (data: LoginFormInputs) => {
+    try {
+      const secretKey = "my-secret-key";
+
+      const encryptedData = CryptoJS.AES.encrypt(
+        JSON.stringify(data),
+        secretKey
+      ).toString();
+      
+      const token = CryptoJS.enc.Base64.stringify(
+        CryptoJS.enc.Utf8.parse(`${encryptedData}`)
+      );
+
+      console.log("Encrypted Data:", encryptedData);
+      console.log("Generated Token:", token);
+      // const result = await loginUser(data).unwrap();
+      console.log("Result: ", data)
+    } catch (error) {
+      console.log("Error: ", error)
+    }
+  };
 
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithGoogle();
       if (result) {
         const user = result.user;
-        setUser({
-          displayName: user.displayName || '',
-          photoURL: user.photoURL || '',
-          email: user.email || '',
-          uid: user.uid,
-          emailVerified: user.emailVerified,
-          phoneNumber: user.phoneNumber,
-        });
+        console.log("User: ", user)
       }
     } catch (error) {
-      console.error(error);
+      console.log("Error: ", error)
     }
   };
 
@@ -45,25 +63,10 @@ const Login = () => {
       const result = await signInWithFacebook();
       if (result) {
         const user = result.user;
-        setUser({
-          displayName: user.displayName || '',
-          photoURL: user.photoURL || '',
-          email: user.email || '',
-          uid: user.uid,
-          emailVerified: user.emailVerified,
-          phoneNumber: user.phoneNumber,
-        });
+        console.log("User: ", user)
       }
     } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleLogin = async () => {
-    try {
-      console.log(user)
-    } catch (error) {
-      console.error(error);
+      console.log("Error: ", error)
     }
   };
 
@@ -104,42 +107,68 @@ const Login = () => {
             <p className="text-[#00000080] text-[16px]">Login into your account</p>
           </div>
 
-          <div className="mb-[24px] relative">
-            <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">Username</label>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-[24px] relative">
+              <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
+                Email
+              </label>
+              <div className="relative">
+                <img src={userIcon} alt="user" className='w-[30px] h-[18px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
+                <input
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address"
+                    }
+                  })}
+                  type="email"
+                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
+                  placeholder="Enter email"
+                />
+              </div>
+              {errors.email && (
+                <span className="text-red-500 text-sm mt-1">{errors.email.message}</span>
+              )}
+            </div>
+
             <div className="relative">
-              <img src={userIcon} alt="user" className='w-[30px] h-[18px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
-              <input
-                type="text"
-                className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                placeholder="Enter username or email"
-              />
-            </div >
-          </div >
+              <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
+                Password
+              </label>
+              <div className="relative">
+                <img src={LockIcon} alt="lock" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
+                <input
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters"
+                    }
+                  })}
+                  type="password"
+                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
+                  placeholder="Enter your password"
+                />
+              </div>
+              {errors.password && (
+                <span className="text-red-500 text-sm mt-1">{errors.password.message}</span>
+              )}
+            </div>
 
-          <div className="relative">
-            <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">Password</label>
-            <div className="relative">
-              <img src={LockIcon} alt="user" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
-              <input
-                type="password"
-                className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                placeholder="Enter  your password"
-              />
-            </div >
-          </div >
+            <div className="flex justify-end my-[23px]">
+              <a href="/forgot-password" className="text-[14px] text-[#00000080] hover:text-[#0D3FC6]">
+                Forgot your password?
+              </a>
+            </div>
 
-          <div className="flex justify-end my-[23px]">
-            <a href="/forgot-password" className="text-[14px] text-[#00000080] hover:text-[#0D3FC6]">
-              Forgot your password?
-            </a>
-          </div>
-
-          <button
-            className="w-full bg-gradient-to-r from-[#0D3FC6] to-[#3793FF] text-white py-[16px] rounded-[8px] font-medium hover:bg-blue-700 transition-colors cursor-pointer !rounded-button whitespace-nowrap text-[14px] leading-[18px] uppercase"
-            onClick={handleLogin}
-          >
-            LOGIN
-          </button>
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-[#0D3FC6] to-[#3793FF] text-white py-[16px] rounded-[8px] font-medium hover:bg-blue-700 transition-colors cursor-pointer !rounded-button whitespace-nowrap text-[14px] leading-[18px] uppercase"
+            >
+              LOGIN
+            </button>
+          </form>
 
           <div className="flex items-center my-[25px] w-full max-w-[290px] mx-auto">
             <div className="flex-1 border-t border-[#1C1C1C33]"></div>

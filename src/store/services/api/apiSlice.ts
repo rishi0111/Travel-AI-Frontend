@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const baseUrl = process.env.REACT_APP_API_URL || 'http://snake.localhost:8000/';
 
 export const apiSlice = createApi({
-     reducerPath: 'api',
-     baseQuery: fetchBaseQuery({ baseUrl }),
-     endpoints: (builder) => ({
+    reducerPath: 'api',
+    baseQuery: fetchBaseQuery({ 
+        baseUrl:  'http://snake.localhost:8000/'
+    }),
+    endpoints: (builder) => ({
           // login user
           loginUser: builder.mutation({
                query: (user) => ({
