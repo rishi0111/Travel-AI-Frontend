@@ -113,8 +113,8 @@ const Login = () => {
                 className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
                 placeholder="Enter username or email"
               />
-            </div >
-          </div >
+            </div>
+          </div>
 
           <div className="relative">
             <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">Password</label>

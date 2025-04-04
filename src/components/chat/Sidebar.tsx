@@ -17,20 +17,33 @@ const Sidebar = () => {
   };
 
   return (
-    <div>
+    <div className="w-[100%] max-w-[350px] md:max-w-auto md:w-[275px] absolute">
       {/* Toggle Button for Mobile */}
+      {isOpen ? (
       <button
-        className="md:hidden flex flex-col justify-center items-center gap-[4px] fixed top-4 right-4 z-20 bg-[#E7ECF9] h-[34px] w-[34px] rounded-full"
+        className="absolute md:hidden flex flex-col justify-center items-center gap-[4px] top-[50px] right-[-30px] z-[999] bg-[#ffffff] h-[34px] w-[34px] rounded-[0px_10px_10px_0px]"
         onClick={toggleSidebar}
       >
-        <span className="block w-[18px] h-[2px] bg-gray-500"></span>
-        <span className="block w-[18px] h-[2px] bg-gray-500"></span>
-        <span className="block w-[18px] h-[2px] bg-gray-500"></span>
+            <span className="block w-[20px] h-[2px] bg-black rotate-45"></span>
+            <span className="block w-[20px] h-[2px] bg-black -rotate-45 mt-[-5px] "></span>
       </button>
+      ) : (
+        <button
+        className="md:hidden flex flex-col justify-center items-center gap-[4px] fixed top-4 right-4 z-[99] bg-[#0D3FC6] h-[34px] w-[34px] rounded-full"
+        onClick={toggleSidebar}
+        >
+            <span className="block w-[18px] h-[2px] bg-white"></span>
+            <span className="block w-[18px] h-[2px] bg-white"></span>
+            <span className="block w-[18px] h-[2px] bg-white"></span>
+        </button>
+      )}
 
+      {isOpen && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-[98]"></div>
+      )}
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-[80%] md:w-[275px] bg-white z-10 overflow-hidden transition-transform transform ${
+        className={`fixed top-0 left-0  h-full w-[100%] max-w-[350px] md:max-w-auto md:w-[275px] bg-white z-[99] overflow-hidden transition-transform transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 border-r border-gray-200`}
       >
