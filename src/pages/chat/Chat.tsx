@@ -414,6 +414,9 @@ const Chat = () => {
                                                         <span className="block text-[16px] text-[#1249CC] font-bold">$ 590</span>
                                                     </div>
                                                  </div>
+                                                 <div>
+                                                    <button className="cursor-pointer bg-[#E7ECF9] text-[#0D3FC6] rounded-[4px] text[14px] font-semibold py-[8px] px-[10px] w-full">View Details</button>
+                                                 </div>
                                              </div>
                                          </div>
                                          ))}
