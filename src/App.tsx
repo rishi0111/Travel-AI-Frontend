@@ -6,7 +6,8 @@ import ChangePassword from './pages/auth/ChangePassword';
 import OTP from './pages/auth/OtpVerification';
 import Chat from './pages/chat/Chat';
 import PlanDetails from './pages/planDetails/PlanDetails';
-
+import Bookings from './pages/bookings/Bookings';
+import Payment from './pages/payments/Payments';
 function App() {
   return (
     <Router>
@@ -18,6 +19,8 @@ function App() {
         <Route path="/otp-verification" element={<OTP />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/plan-details" element={<PlanDetails />} />
+        <Route path="/bookings" element={<Bookings />} />
+        <Route path="/payments" element={<Payment />} />
       </Routes>
     </Router>
   );

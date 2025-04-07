@@ -132,10 +132,10 @@ const PlanDetails = () => {
                         Price starts from
                       </div>
                       <div className="flex items-baseline">
-                        <span className="text-[22px] leading-[32px] font-bold text-[#0D3FC6]">
+                        <span className="text-[18px]  sm:text-[22px] leading-[32px] font-bold text-[#0D3FC6]">
                           $599
                         </span>
-                        <span className="text-[16px] leading-[24px] font-semibold text-[#05073C] ml-1">
+                        <span className="text-[14px] sm:text-[16px] leading-[24px] font-semibold text-[#05073C] ml-1">
                           / person
                         </span>
                       </div>
@@ -145,7 +145,7 @@ const PlanDetails = () => {
                       <div className="text-[14px] leading-[20px] font-normal text-[#05073C]">
                         Duration
                       </div>
-                      <div className="text-[16px] leading-[24px] font-semibold text-[#05073C]">
+                      <div className="text-[14px] sm:text-[16px] leading-[24px] font-semibold text-[#05073C]">
                         7 Days
                       </div>
                     </div>
@@ -293,7 +293,7 @@ const PlanDetails = () => {
                         What's included
                       </h2>
                       <div className="flex items-start gap-[10px] mt-[22px] flex-wrap sm:flex-nowrap">
-                        <div className="w-2/3">
+                        <div className="w-full sm:w-2/3">
                           <div className="flex items-start gap-[20px] mb-[20px]">
                             <div className="bg-[#EFF7F1] rounded-full h-[26px] w-full max-w-[26px] flex items-center justify-center">
                               <img src={CheckIcon} alt="Check" className="" />
@@ -345,7 +345,7 @@ const PlanDetails = () => {
                             </span>
                           </div>
                         </div>
-                        <div className="w-1/3">
+                        <div className="w-full sm:w-1/3">
                           <div className="flex items-start gap-[20px] mb-[20px]">
                             <div className="bg-[#FFE5E5] rounded-full h-[26px] w-full max-w-[26px] flex items-center justify-center">
                               <img src={CrossIcon} alt="Check" className="" />
