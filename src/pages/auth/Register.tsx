@@ -1,12 +1,14 @@
 import userIcon from '../../assets/user-icon.svg';
-import googleIcon from '../../assets/google-icon.svg';
-import facebookIcon from '../../assets/facebook-icon.svg';
 import airplane from '../../assets/plane-icon.svg';
 import Logo from '../../assets/site-logo.svg';
 import LockIcon from '../../assets/lock-icon.svg';
 import video from '../../assets/videos/signup-video.mp4';
 import emailIcon from '../../assets/email-icon.svg';
 import { useForm } from 'react-hook-form';
+import SocialLogin from '../../components/auth/SocialLogin';
+import AuthButton from './AuthButton';
+import { useRegisterUserMutation } from '../../store/features/auth/authApi';
+import { Link } from 'react-router-dom';
 
 interface RegisterFormInputs {
   username: string;
@@ -16,7 +18,7 @@ interface RegisterFormInputs {
 }
 
 const Register = () => {
-  
+  const [registerUser] = useRegisterUserMutation();
   const {
     register,
     handleSubmit,
@@ -28,7 +30,13 @@ const Register = () => {
 
   const onSubmit = async (data: RegisterFormInputs) => {
     try {
-      console.log(data);
+      const userData = {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      }
+      const response = await registerUser(userData);
+      console.log(response);
     } catch (error) {
       console.log("Error: ", error)
     }
@@ -80,7 +88,7 @@ const Register = () => {
               <div className="relative">
                 <img src={userIcon} alt="user" className='w-[30px] h-[18px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
                 <input
-                  {...register("username", { 
+                  {...register("username", {
                     required: "Username is required",
                     minLength: {
                       value: 3,
@@ -104,7 +112,7 @@ const Register = () => {
               <div className="relative">
                 <img src={emailIcon} alt="email" className='w-[30px] h-[20px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
                 <input
-                  {...register("email", { 
+                  {...register("email", {
                     required: "Email is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -128,7 +136,7 @@ const Register = () => {
               <div className="relative">
                 <img src={LockIcon} alt="lock" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
                 <input
-                  {...register("password", { 
+                  {...register("password", {
                     required: "Password is required",
                     minLength: {
                       value: 6,
@@ -152,9 +160,9 @@ const Register = () => {
               <div className="relative">
                 <img src={LockIcon} alt="lock" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
                 <input
-                  {...register("confirmPassword", { 
+                  {...register("confirmPassword", {
                     required: "Please confirm your password",
-                    validate: value => 
+                    validate: value =>
                       value === password || "Passwords do not match"
                   })}
                   type="password"
@@ -167,36 +175,16 @@ const Register = () => {
               )}
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-[#0D3FC6] to-[#3793FF] text-white py-[16px] rounded-[8px] font-medium hover:bg-blue-700 transition-colors cursor-pointer !rounded-button whitespace-nowrap text-[14px] leading-[18px] uppercase"
-            >
-              SIGN UP
-            </button>
+            <AuthButton>SIGN UP</AuthButton>
           </form>
 
-          <div className="flex items-center my-[25px] w-full max-w-[290px] mx-auto">
-            <div className="flex-1 border-t border-[#1C1C1C33]"></div>
-            <span className="px-4 text-[#05073C] text-[14px] leading-[18px]">OR Sign up With</span>
-            <div className="flex-1 border-t border-[#1C1C1C33]"></div>
-          </div>
-
-          <div className="flex gap-4 justify-center">
-            <button className="flex items-center justify-center gap-2 border border-[#E0E2E9] rounded-[8px] px-[12px] py-[14px] hover:bg-gray-50 cursor-pointer !rounded-button whitespace-nowrap w-[140px]">
-              <img src={googleIcon} alt="Google" className="w-[20px] h-[20px]" />
-              <span className='text-[14px] leading-[18px] text-[#171725] font-semibold'>Google</span>
-            </button>
-            <button className="flex items-center justify-center gap-2 border border-[#E0E2E9] rounded-[8px] px-[12px] py-[14px] hover:bg-gray-50 cursor-pointer !rounded-button whitespace-nowrap w-[140px]">
-              <img src={facebookIcon} alt="Facebook" className="w-[20px] h-[20px]" />
-              <span className='text-[14px] leading-[18px] text-[#171725] font-semibold'>Facebook</span>
-            </button>
-          </div>
+          <SocialLogin />
 
           <div className="text-center text-[#05073C] font-normal mt-[30px] text-[14px] leading-[18px]">
             Already have an account? {" "}
-            <a href="/" className="text-[#0D3FC6] font-semibold">
+            <Link to="/" className="text-[#0D3FC6] font-semibold">
               Sign In
-            </a>
+            </Link>
           </div>
         </div>
       </div>

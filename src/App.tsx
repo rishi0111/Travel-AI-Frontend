@@ -10,10 +10,6 @@ import PlanDetails from './pages/planDetails/PlanDetails';
 function App() {
   return (
     <Router>
-      {/* <nav className="bg-gray-800 p-4">
-        <Link to="/" className="text-white mr-4">Home</Link>
-        <Link to="/about" className="text-white">About</Link>
-      </nav> */}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
