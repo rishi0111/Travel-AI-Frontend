@@ -16,8 +16,10 @@ import RatingIcon from "../../assets/rating-star.svg";
 import ContactUsModal from "../../components/chat/ContactUsModal";
 import SignUpModal from "../../components/chat/SignUpModal";
 import SignInModal from "../../components/chat/SignInModal";
+
 const PlanDetails = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  
   return (
     <div className="flex ">
       <Sidebar />

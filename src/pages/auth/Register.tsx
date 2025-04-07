@@ -7,6 +7,8 @@ import emailIcon from '../../assets/email-icon.svg';
 import { useForm } from 'react-hook-form';
 import SocialLogin from '../../components/auth/SocialLogin';
 import AuthButton from './AuthButton';
+import { useRegisterUserMutation } from '../../store/features/auth/authApi';
+import { Link } from 'react-router-dom';
 
 interface RegisterFormInputs {
   username: string;
@@ -16,6 +18,7 @@ interface RegisterFormInputs {
 }
 
 const Register = () => {
+  const [registerUser] = useRegisterUserMutation();
   const {
     register,
     handleSubmit,
@@ -27,7 +30,13 @@ const Register = () => {
 
   const onSubmit = async (data: RegisterFormInputs) => {
     try {
-      console.log(data);
+      const userData = {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      }
+      const response = await registerUser(userData);
+      console.log(response);
     } catch (error) {
       console.log("Error: ", error)
     }
@@ -169,19 +178,13 @@ const Register = () => {
             <AuthButton>SIGN UP</AuthButton>
           </form>
 
-          <div className="flex items-center my-[25px] w-full max-w-[290px] mx-auto">
-            <div className="flex-1 border-t border-[#1C1C1C33]"></div>
-            <span className="px-4 text-[#05073C] text-[14px] leading-[18px]">OR Sign up With</span>
-            <div className="flex-1 border-t border-[#1C1C1C33]"></div>
-          </div>
-
           <SocialLogin />
 
           <div className="text-center text-[#05073C] font-normal mt-[30px] text-[14px] leading-[18px]">
             Already have an account? {" "}
-            <a href="/" className="text-[#0D3FC6] font-semibold">
+            <Link to="/" className="text-[#0D3FC6] font-semibold">
               Sign In
-            </a>
+            </Link>
           </div>
         </div>
       </div>

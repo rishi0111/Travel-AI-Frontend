@@ -3,7 +3,32 @@ import Logo from "../../assets/site-logo.svg";
 import video from "../../assets/videos/forgot-pass-video.mp4";
 import emailIcon from "../../assets/email-icon.svg";
 import AuthButton from "./AuthButton";
+import { useRequestOtpMutation } from "../../store/features/auth/authApi";
+import { useForm } from 'react-hook-form';
+import { Link } from "react-router-dom";
+
+interface ForgotPasswordInputs {
+  email: string;
+}
+
 const ForgotPassword = () => {
+  const [requestOtp] = useRequestOtpMutation();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<ForgotPasswordInputs>();
+
+  const onSubmit = async (data: ForgotPasswordInputs) => {
+    try {
+      console.log(data);
+      // Add your password reset API call here
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
   return (
     <div className="flex md:h-screen h-auto w-full">
       {/* Left side with video background */}
@@ -41,27 +66,40 @@ const ForgotPassword = () => {
               Forgot Password
             </h1>
             <p className="text-[#00000080] text-[16px]">
-              Don’t worry! Just enter your registered email to reset it
+              Don't worry! Just enter your registered email to reset it
             </p>
           </div>
-          <div className="mb-[24px] relative w-full">
-            <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
-              Email Id
-            </label>
-            <div className="relative">
-              <img
-                src={emailIcon}
-                alt="user"
-                className="w-[30px] h-[20px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2"
-              />
-              <input
-                type="email"
-                className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                placeholder="Enter your email"
-              />
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-[24px] relative w-full">
+              <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
+                Email Id
+              </label>
+              <div className="relative">
+                <img
+                  src={emailIcon}
+                  alt="user"
+                  className="w-[30px] h-[20px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2"
+                />
+                <input
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address"
+                    }
+                  })}
+                  type="email"
+                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
+                  placeholder="Enter your email"
+                />
+              </div>
+              {errors.email && (
+                <span className="text-red-500 text-sm mt-1">{errors.email.message}</span>
+              )}
             </div>
-          </div>
-          <AuthButton>RESET PASSWORD</AuthButton>
+            <AuthButton>RESET PASSWORD</AuthButton>
+          </form>
 
           <div className="flex items-center my-[25px] w-full max-w-[290px] mx-auto">
             <div className="flex-1 border-t border-[#1C1C1C33]"></div>
@@ -71,10 +109,10 @@ const ForgotPassword = () => {
             <div className="flex-1 border-t border-[#1C1C1C33]"></div>
           </div>
           <div className="text-center text-[#05073C] font-normal mt-[30px] text-[14px] leading-[18px]">
-          Back To {" "}
-            <a href="/" className="text-[#0D3FC6] font-semibold">
+            Back To {" "}
+            <Link to="/" className="text-[#0D3FC6] font-semibold">
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>

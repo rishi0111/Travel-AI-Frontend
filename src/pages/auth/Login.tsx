@@ -9,6 +9,7 @@ import { encryptData } from '../../utils/ecryptData';
 import SocialLogin from '../../components/auth/SocialLogin';
 import AuthButton from './AuthButton';
 import InputField from '../../components/common/InputField';
+import { useLoginUserMutation } from '../../store/features/auth/authApi';
 
 interface LoginFormInputs {
   email: string;
@@ -16,6 +17,7 @@ interface LoginFormInputs {
 }
 
 const Login = () => {
+  const [loginUser] = useLoginUserMutation();
   const {
     register,
     handleSubmit,
@@ -27,6 +29,8 @@ const Login = () => {
       const encryptedData = encryptData(data);
       console.log("Encrypted Data:", encryptedData);
       console.log("Result: ", data)
+      const response = await loginUser(encryptedData);
+      console.log("Response: ", response)
     } catch (error) {
       console.log("Error: ", error)
     }
@@ -105,19 +109,13 @@ const Login = () => {
             />
 
             <div className="flex justify-end my-[23px]">
-              <a href="/forgot-password" className="text-[14px] text-[#00000080] hover:text-[#0D3FC6]">
+              <Link to="/forgot-password" className="text-[14px] text-[#00000080] hover:text-[#0D3FC6]">
                 Forgot your password?
-              </a>
+              </Link>
             </div>
 
             <AuthButton>LOGIN</AuthButton>
           </form>
-
-          <div className="flex items-center my-[25px] w-full max-w-[290px] mx-auto">
-            <div className="flex-1 border-t border-[#1C1C1C33]"></div>
-            <span className="px-4 text-[#05073C] text-[14px] leading-[18px]">OR Login With</span>
-            <div className="flex-1 border-t border-[#1C1C1C33]"></div>
-          </div>
 
           <SocialLogin />
 
