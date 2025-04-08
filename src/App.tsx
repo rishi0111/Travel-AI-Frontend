@@ -8,6 +8,7 @@ import Chat from './pages/chat/Chat';
 import PlanDetails from './pages/planDetails/PlanDetails';
 import Bookings from './pages/bookings/Bookings';
 import Payment from './pages/payments/Payments';
+import ContactUs from './pages/contact/ContactUs';
 function App() {
   return (
     <Router>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/plan-details" element={<PlanDetails />} />
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/payments" element={<Payment />} />
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
     </Router>
   );
