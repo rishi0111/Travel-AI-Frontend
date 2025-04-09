@@ -8,10 +8,11 @@ import ContactUsIcon from "../../assets/contact-us-icon.svg";
 import HistoryIcon from "../../assets/history-icon.svg";
 import TermsIcon from "../../assets/terms-icon.svg";
 import PrivacyPolicyIcon from "../../assets/privacy-policy-icon.svg";
+import ArrowDownIcon from "../../assets/arrow-bottom.svg";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [showProfile, setShowProfile] = useState(false);
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -125,7 +126,8 @@ const Sidebar = () => {
             </a>
             </div>
         </div>
-        <div className="flex items-center p-[16px] border-t border-[#E5E7EB]">
+        <div className="flex items-center p-[16px] border-t border-[#E5E7EB] relative cursor-pointer"
+         onClick={() => setShowProfile(!showProfile)}>
           <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center mr-3">
             <span className="text-gray-600">EW</span>
           </div>
@@ -133,6 +135,15 @@ const Sidebar = () => {
             <p className="text-[16px] leading-[24px] text-[#05073C] font-semibold">Emily Watson</p>
             <p className="text-[14px] leading-[20px] text-[#6B7280]">emily@workspace.com</p>
           </div>
+          <div>
+            <img src={ArrowDownIcon} alt="Arrow Down" className="absolute right-[10px] top-[50%] translate-y-[-50%] rotate-180" />
+          </div>
+          {showProfile && (
+            <div className="absolute bottom-[75px] left-[50%] translate-x-[-50%] bg-white rounded-[15px_0px_15px_0px] shadow-lg border border-[#E5E7EB] w-full py-[6px] px-[6px] max-w-[265px]">
+              <a href="#" className="text-[14px] text-[#636C76] font-semibold px-[6px] py-[8px] block hover:bg-[#E7ECF9] border border-white rounded-[5px] hover:border hover:border-[#0D3FC6]">Logout</a>
+              <a href="/change-password" className="text-[14px] text-[#636C76] font-semibold px-[6px] py-[8px] block hover:bg-[#E7ECF9] border border-white rounded-[5px] hover:border hover:border-[#0D3FC6]">Change Password</a>
+            </div>
+          )}
         </div>
       </div>
     </div>
