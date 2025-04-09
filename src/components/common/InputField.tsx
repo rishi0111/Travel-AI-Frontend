@@ -1,5 +1,4 @@
-import React from 'react';
-import { UseFormRegister, FieldValues, FieldError, RegisterOptions } from 'react-hook-form';
+import { UseFormRegister, FieldValues, FieldError, RegisterOptions, Path } from 'react-hook-form';
 
 interface InputFieldProps<T extends FieldValues> {
   label: string;
@@ -9,7 +8,7 @@ interface InputFieldProps<T extends FieldValues> {
   icon: string;
   register: UseFormRegister<T>;
   error?: FieldError;
-  validation?: RegisterOptions<T, keyof T>;
+  validation?: RegisterOptions<T, Path<T>>;
 }
 
 const InputField = <T extends FieldValues>({
@@ -34,7 +33,7 @@ const InputField = <T extends FieldValues>({
           className='w-[30px] h-[18px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' 
         />
         <input
-          {...register(name, validation)}
+          {...register(name as Path<T>, validation)}
           type={type}
           className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
           placeholder={placeholder}

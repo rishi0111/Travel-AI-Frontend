@@ -2,10 +2,12 @@ import airplane from "../../assets/plane-icon.svg";
 import Logo from "../../assets/site-logo.svg";
 import video from "../../assets/videos/forgot-pass-video.mp4";
 import emailIcon from "../../assets/email-icon.svg";
-import AuthButton from "./AuthButton";
+import AuthButton from "../../components/auth/AuthButton";
 import { useRequestOtpMutation } from "../../store/features/auth/authApi";
 import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom";
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface ForgotPasswordInputs {
   email: string;
@@ -13,6 +15,7 @@ interface ForgotPasswordInputs {
 
 const ForgotPassword = () => {
   const [requestOtp] = useRequestOtpMutation();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -23,7 +26,15 @@ const ForgotPassword = () => {
   const onSubmit = async (data: ForgotPasswordInputs) => {
     try {
       console.log(data);
-      // Add your password reset API call here
+      const response = await requestOtp(data);
+      if (response.error) {
+        // @ts-expect-error error
+        toast.error(response.error.data?.msg || "An unexpected error occurred");
+        return;
+      } else {
+        toast.success(response?.data?.msg || "OTP sent to your email");
+        navigate("/otp-verification")
+      }
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -89,7 +100,7 @@ const ForgotPassword = () => {
                       message: "Invalid email address"
                     }
                   })}
-                  type="email"
+                  type="text"
                   className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
                   placeholder="Enter your email"
                 />

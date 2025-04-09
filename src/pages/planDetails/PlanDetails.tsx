@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Sidebar from "../../components/chat/Sidebar";
 import BackIcon from "../../assets/back-arrow.svg";
 import PlanImage1 from "../../assets/plan-img1.png";
 import PlanImage2 from "../../assets/plan-img2.png";
@@ -13,16 +12,15 @@ import DisclaimerIcon from "../../assets/disclaimer-icon.svg";
 import CheckIcon from "../../assets/green-check-icon.svg";
 import CrossIcon from "../../assets/red-cross-icon.svg";
 import RatingIcon from "../../assets/rating-star.svg";
-import ContactUsModal from "../../components/chat/ContactUsModal";
-import SignUpModal from "../../components/chat/SignUpModal";
-import SignInModal from "../../components/chat/SignInModal";
+import ContactUsModal from "../../components/dashboard/payments/ContactUsModal";
+// import SignUpModal from "../../components/chat/SignUpModal";
+// import SignInModal from "../../components/chat/SignInModal";
 
 const PlanDetails = () => {
   const [activeTab, setActiveTab] = useState("overview");
-  
+
   return (
     <div className="flex ">
-      <Sidebar />
       <div className="md:ms-[275px] h-screen overflow-y-auto flex-1">
         <div className=" py-[15px] sm:py-[44px] max-w-[1075px] mx-auto sm:px-[20px] px-[10px]">
           <a
@@ -171,51 +169,46 @@ const PlanDetails = () => {
                   <div className="border-b border-gray-200">
                     <div className="flex justify-between sm:justify-start sm:gap-[10px] lg:gap-[30px] items-center flex-wrap sm:flex-nowrap">
                       <button
-                        className={`text-[12px] sm:text-[14px] lg:text-[18px] px-[10px] sm:px-[16px] py-[6px] sm:py-[10px] text-[#05073C] leading-[24px] font-normal cursor-pointer ${
-                          activeTab === "overview"
+                        className={`text-[12px] sm:text-[14px] lg:text-[18px] px-[10px] sm:px-[16px] py-[6px] sm:py-[10px] text-[#05073C] leading-[24px] font-normal cursor-pointer ${activeTab === "overview"
                             ? "border-b-3 border-[#0D3FC6]"
                             : ""
-                        }`}
+                          }`}
                         onClick={() => setActiveTab("overview")}
                       >
                         Overview
                       </button>
                       <button
-                        className={`text-[12px] sm:text-[14px] lg:text-[18px] px-[10px] sm:px-[16px] py-[6px] sm:py-[10px] text-[#05073C] leading-[24px] font-normal cursor-pointer ${
-                          activeTab === "inclusion"
+                        className={`text-[12px] sm:text-[14px] lg:text-[18px] px-[10px] sm:px-[16px] py-[6px] sm:py-[10px] text-[#05073C] leading-[24px] font-normal cursor-pointer ${activeTab === "inclusion"
                             ? "border-b-3 border-[#0D3FC6]"
                             : ""
-                        }`}
+                          }`}
                         onClick={() => setActiveTab("inclusion")}
                       >
                         Inclusion
                       </button>
                       <button
-                        className={`text-[12px] sm:text-[14px] lg:text-[18px] px-[10px] sm:px-[16px] py-[6px] sm:py-[10px] text-[#05073C] leading-[24px] font-normal cursor-pointer ${
-                          activeTab === "itinerary"
+                        className={`text-[12px] sm:text-[14px] lg:text-[18px] px-[10px] sm:px-[16px] py-[6px] sm:py-[10px] text-[#05073C] leading-[24px] font-normal cursor-pointer ${activeTab === "itinerary"
                             ? "border-b-3 border-[#0D3FC6]"
                             : ""
-                        }`}
+                          }`}
                         onClick={() => setActiveTab("itinerary")}
                       >
                         Itinerary
                       </button>
                       <button
-                        className={`text-[12px] sm:text-[14px] lg:text-[18px] px-[10px] sm:px-[16px] py-[6px] sm:py-[10px] text-[#05073C] leading-[24px] font-normal cursor-pointer ${
-                          activeTab === "terms"
+                        className={`text-[12px] sm:text-[14px] lg:text-[18px] px-[10px] sm:px-[16px] py-[6px] sm:py-[10px] text-[#05073C] leading-[24px] font-normal cursor-pointer ${activeTab === "terms"
                             ? "border-b-3 border-[#0D3FC6]"
                             : ""
-                        }`}
+                          }`}
                         onClick={() => setActiveTab("terms")}
                       >
                         Terms
                       </button>
                       <button
-                        className={`text-[12px] sm:text-[14px] lg:text-[18px] px-[10px] sm:px-[16px] py-[6px] sm:py-[10px] text-[#05073C] leading-[24px] font-normal cursor-pointer ${
-                          activeTab === "reviews"
+                        className={`text-[12px] sm:text-[14px] lg:text-[18px] px-[10px] sm:px-[16px] py-[6px] sm:py-[10px] text-[#05073C] leading-[24px] font-normal cursor-pointer ${activeTab === "reviews"
                             ? "border-b-3 border-[#0D3FC6]"
                             : ""
-                        }`}
+                          }`}
                         onClick={() => setActiveTab("reviews")}
                       >
                         Reviews
@@ -385,60 +378,60 @@ const PlanDetails = () => {
 
                         {/* Day 1 */}
                         <div className="relative pl-[40px] mb-[20px] sm:mb-[35px]">
-                        <div className="absolute left-[-18px] top-[50%] translate-y-[-50%] w-[38px] h-[38px] rounded-full bg-[#0D9BC6] border-4 border-white z-10"></div>
-                        <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
+                          <div className="absolute left-[-18px] top-[50%] translate-y-[-50%] w-[38px] h-[38px] rounded-full bg-[#0D9BC6] border-4 border-white z-10"></div>
+                          <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
                             Day 1: Airport Pick Up
-                        </h3>
+                          </h3>
                         </div>
 
                         {/* Day 2 */}
                         <div className="relative pl-[40px] mb-[20px] sm:mb-[50px]">
-                        <div className="absolute sm:left-[-12px] left-[-10px] top-[50%] translate-y-[-50%] w-[18px] sm:w-[23px] h-[18px] sm:h-[23px] rounded-full bg-white border-3 border-[#0D9BC6] z-10"></div>
-                        <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
+                          <div className="absolute sm:left-[-12px] left-[-10px] top-[50%] translate-y-[-50%] w-[18px] sm:w-[23px] h-[18px] sm:h-[23px] rounded-full bg-white border-3 border-[#0D9BC6] z-10"></div>
+                          <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
                             Day 2: Temples & River Cruise
-                        </h3>
+                          </h3>
                         </div>
 
                         {/* Day 3 */}
                         <div className="relative pl-[40px] mb-[20px] sm:mb-[50px]">
-                        <div className="absolute sm:left-[-12px] left-[-10px] top-[50%] translate-y-[-50%] w-[18px] sm:w-[23px] h-[18px] sm:h-[23px] rounded-full bg-white border-3 border-[#0D9BC6] z-10"></div>
-                        <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
+                          <div className="absolute sm:left-[-12px] left-[-10px] top-[50%] translate-y-[-50%] w-[18px] sm:w-[23px] h-[18px] sm:h-[23px] rounded-full bg-white border-3 border-[#0D9BC6] z-10"></div>
+                          <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
                             Day 3: Massage & Overnight Train
-                        </h3>
+                          </h3>
                         </div>
 
                         {/* Day 4 */}
                         <div className="relative pl-[40px] mb-[20px] sm:mb-[50px]">
-                        <div className="absolute sm:left-[-12px] left-[-10px] top-[50%] translate-y-[-50%] w-[18px] sm:w-[23px] h-[18px] sm:h-[23px] rounded-full bg-white border-3 border-[#0D9BC6] z-10"></div>
-                        <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
+                          <div className="absolute sm:left-[-12px] left-[-10px] top-[50%] translate-y-[-50%] w-[18px] sm:w-[23px] h-[18px] sm:h-[23px] rounded-full bg-white border-3 border-[#0D9BC6] z-10"></div>
+                          <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
                             Day 4: Khao Sok National Park
-                        </h3>
+                          </h3>
                         </div>
 
                         {/* Day 5 */}
                         <div className="relative pl-[40px] mb-[20px] sm:mb-[50px]">
-                        <div className="absolute sm:left-[-12px] left-[-10px] top-[50%] translate-y-[-50%] w-[18px] sm:w-[23px] h-[18px] sm:h-[23px] rounded-full bg-white border-3 border-[#0D9BC6] z-10"></div>
-                        <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
+                          <div className="absolute sm:left-[-12px] left-[-10px] top-[50%] translate-y-[-50%] w-[18px] sm:w-[23px] h-[18px] sm:h-[23px] rounded-full bg-white border-3 border-[#0D9BC6] z-10"></div>
+                          <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
                             Day 5: Travel to Koh Phangan
-                        </h3>
+                          </h3>
                         </div>
 
                         {/* Day 6 */}
                         <div className="relative pl-[40px] mb-[20px] sm:mb-[50px]">
-                        <div className="absolute sm:left-[-12px] left-[-10px] top-[50%] translate-y-[-50%] w-[18px] sm:w-[23px] h-[18px] sm:h-[23px] rounded-full bg-white border-3 border-[#0D9BC6] z-10"></div>
-                        <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
+                          <div className="absolute sm:left-[-12px] left-[-10px] top-[50%] translate-y-[-50%] w-[18px] sm:w-[23px] h-[18px] sm:h-[23px] rounded-full bg-white border-3 border-[#0D9BC6] z-10"></div>
+                          <h3 className="text-[12px] sm:text-[15px] sm:leading-[30px] leading-[20px] font-semibold text-[#05073C] mb-1">
                             Day 6: Morning Chill & Muay Thai Lesson
-                        </h3>
+                          </h3>
                         </div>
 
                         {/* Day 7 */}
                         <div className="relative pl-[40px] mb-[50px]">
-                        <div className="absolute left-[-16px] top-[50%] translate-y-[-50%] w-[30px] h-[30px] rounded-full bg-[#0D9BC6]  z-10"></div>
-                        <h3 className="text-[15px] leading-[30px] font-semibold text-[#05073C] mb-1">
+                          <div className="absolute left-[-16px] top-[50%] translate-y-[-50%] w-[30px] h-[30px] rounded-full bg-[#0D9BC6]  z-10"></div>
+                          <h3 className="text-[15px] leading-[30px] font-semibold text-[#05073C] mb-1">
                             Day 7: Island Boat Trip
-                        </h3>
+                          </h3>
                         </div>
-                    </div>
+                      </div>
                     </div>
                   )}
 
@@ -747,16 +740,16 @@ const PlanDetails = () => {
 
                           <div className="">
                             <div className="flex items-center gap-[16px] mb-[8px]">
-                                <div className="flex items-center">
-                                    <img src={RatingIcon} alt="Rating" />
-                                    <img src={RatingIcon} alt="Rating" />
-                                    <img src={RatingIcon} alt="Rating" />
-                                    <img src={RatingIcon} alt="Rating" />
-                                    <img src={RatingIcon} alt="Rating" />
-                                </div>
-                                <h4 className="font-bold mb-0 text-[14px] leading-[24px] text-[#05073C]">
+                              <div className="flex items-center">
+                                <img src={RatingIcon} alt="Rating" />
+                                <img src={RatingIcon} alt="Rating" />
+                                <img src={RatingIcon} alt="Rating" />
+                                <img src={RatingIcon} alt="Rating" />
+                                <img src={RatingIcon} alt="Rating" />
+                              </div>
+                              <h4 className="font-bold mb-0 text-[14px] leading-[24px] text-[#05073C]">
                                 Take this tour! Its fantastic!
-                                </h4>
+                              </h4>
                             </div>
                             <p className="text-[14px] leading-[28px] font-normal text-[#05073C] mb-[30px]">
                               Great for 4-5 hours to explore. Really a lot to
@@ -786,62 +779,62 @@ const PlanDetails = () => {
                         </div>
                       </div>
                       <div className="flex flex-col mb-[60px]">
-                          <div className="flex items-center gap-4 mb-[10px]">
-                            <div className="w-full max-w-[45px] h-[45px] bg-[#212947] rounded-full flex items-center justify-center text-white font-bold">
-                              AT
-                            </div>
-                            <div className="flex w-full justify-between">
-                              <span className="font-medium text-[15px] leading-[24px] text-[#05073C]">Ali Tufan</span>
-                              <div className="">
-                                <span className="text-[#717171] text-[14px] leading-[20px] font-normal">
-                                  April 2023
-                                </span>
-                              </div>
-                            </div>
+                        <div className="flex items-center gap-4 mb-[10px]">
+                          <div className="w-full max-w-[45px] h-[45px] bg-[#212947] rounded-full flex items-center justify-center text-white font-bold">
+                            AT
                           </div>
-
-                          <div className="">
-                            <div className="flex items-center gap-[16px] mb-[8px]">
-                                <div className="flex items-center">
-                                    <img src={RatingIcon} alt="Rating" />
-                                    <img src={RatingIcon} alt="Rating" />
-                                    <img src={RatingIcon} alt="Rating" />
-                                    <img src={RatingIcon} alt="Rating" />
-                                    <img src={RatingIcon} alt="Rating" />
-                                </div>
-                                <h4 className="font-bold mb-0 text-[14px] leading-[24px] text-[#05073C]">
-                                Take this tour! Its fantastic!
-                                </h4>
+                          <div className="flex w-full justify-between">
+                            <span className="font-medium text-[15px] leading-[24px] text-[#05073C]">Ali Tufan</span>
+                            <div className="">
+                              <span className="text-[#717171] text-[14px] leading-[20px] font-normal">
+                                April 2023
+                              </span>
                             </div>
-                            <p className="text-[14px] leading-[28px] font-normal text-[#05073C] mb-[30px]">
-                              Great for 4-5 hours to explore. Really a lot to
-                              see and tons of photo spots. Even have a passport
-                              for you to collect all the stamps as a souvenir.
-                              Must see for a Harry Potter fan.
-                            </p>
-                          </div>
-
-                          <div className="flex flex-wrap gap-[10px] max-w-[590px]">
-                            <img
-                              src="https://public.readdy.ai/ai/img_res/444c444871ab083aaa79b4bf40ad50b9.jpg"
-                              alt="Northern Lights Lake"
-                              className="w-[180px] h-[130px] object-cover rounded-xl"
-                            />
-                            <img
-                              src="https://public.readdy.ai/ai/img_res/298f51394d28b3deb229abb20b766bcf.jpg"
-                              alt="Desert Dunes"
-                              className="w-[180px] h-[130px] object-cover rounded-xl"
-                            />
-                            <img
-                              src="https://public.readdy.ai/ai/img_res/f5658d22cca7a4fca58008900a5568fe.jpg"
-                              alt="Railway Viaduct"
-                              className="w-[180px] h-[130px] object-cover rounded-xl"
-                            />
                           </div>
                         </div>
-                        <div>
-                            <a href="#" className="text-[16px] leading-[20px] font-semibod text-[#0D3FC6] py-[10px] sm:py-[17px] w-full sm:max-w-[210px] max-w-[170px] border border-[#0D3FC6] inline-block text-center rounded-[12px] hover:bg-[#0D3FC6] hover:text-white transition-all duration-300">See more reviews</a>
+
+                        <div className="">
+                          <div className="flex items-center gap-[16px] mb-[8px]">
+                            <div className="flex items-center">
+                              <img src={RatingIcon} alt="Rating" />
+                              <img src={RatingIcon} alt="Rating" />
+                              <img src={RatingIcon} alt="Rating" />
+                              <img src={RatingIcon} alt="Rating" />
+                              <img src={RatingIcon} alt="Rating" />
+                            </div>
+                            <h4 className="font-bold mb-0 text-[14px] leading-[24px] text-[#05073C]">
+                              Take this tour! Its fantastic!
+                            </h4>
+                          </div>
+                          <p className="text-[14px] leading-[28px] font-normal text-[#05073C] mb-[30px]">
+                            Great for 4-5 hours to explore. Really a lot to
+                            see and tons of photo spots. Even have a passport
+                            for you to collect all the stamps as a souvenir.
+                            Must see for a Harry Potter fan.
+                          </p>
                         </div>
+
+                        <div className="flex flex-wrap gap-[10px] max-w-[590px]">
+                          <img
+                            src="https://public.readdy.ai/ai/img_res/444c444871ab083aaa79b4bf40ad50b9.jpg"
+                            alt="Northern Lights Lake"
+                            className="w-[180px] h-[130px] object-cover rounded-xl"
+                          />
+                          <img
+                            src="https://public.readdy.ai/ai/img_res/298f51394d28b3deb229abb20b766bcf.jpg"
+                            alt="Desert Dunes"
+                            className="w-[180px] h-[130px] object-cover rounded-xl"
+                          />
+                          <img
+                            src="https://public.readdy.ai/ai/img_res/f5658d22cca7a4fca58008900a5568fe.jpg"
+                            alt="Railway Viaduct"
+                            className="w-[180px] h-[130px] object-cover rounded-xl"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <a href="#" className="text-[16px] leading-[20px] font-semibod text-[#0D3FC6] py-[10px] sm:py-[17px] w-full sm:max-w-[210px] max-w-[170px] border border-[#0D3FC6] inline-block text-center rounded-[12px] hover:bg-[#0D3FC6] hover:text-white transition-all duration-300">See more reviews</a>
+                      </div>
                     </div>
                   )}
                 </div>

@@ -5,19 +5,25 @@ import LockIcon from "../../assets/lock-icon.svg";
 // import PasswordModal from "../../components/auth/PasswordModal";
 import AuthButton from "../../components/auth/AuthButton";
 import { useForm } from 'react-hook-form';
+import { useSetNewPasswordMutation } from "../../store/features/auth/authApi";
 
 interface ChangePasswordInputs {
-  currentPassword: string;
   newPassword: string;
   confirmPassword: string;
 }
 
-const ChangePassword = () => {
+const ConfirmPassword = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<ChangePasswordInputs>();
+  const [setNewPassword] = useSetNewPasswordMutation();
 
-  const onSubmit = (data: ChangePasswordInputs) => {
+  const onSubmit = async (data: ChangePasswordInputs) => {
     console.log('Password Change Data:', data);
-    // Handle password change logic here
+    try {
+      const response = await setNewPassword(data);
+      console.log("Response: ", response)
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   };
 
   const newPassword = watch("newPassword");
@@ -64,27 +70,6 @@ const ChangePassword = () => {
           </div>
           <div className="w-full max-w-[460px] mx-auto">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="relative mb-[24px]">
-                <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
-                  Current Password
-                </label>
-                <div className="relative">
-                  <img
-                    src={LockIcon}
-                    alt="user"
-                    className="w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2"
-                  />
-                  <input
-                    {...register("currentPassword", { required: "Current password is required" })}
-                    type="password"
-                    className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                    placeholder="Enter your current password"
-                  />
-                </div>
-                {errors.currentPassword && (
-                  <span className="text-red-500 text-sm mt-1">{errors.currentPassword.message}</span>
-                )}
-              </div>
 
               <div className="relative mb-[24px]">
                 <label className="block text-[10px] font-bold text-[#0D9BC6] mb-1 absolute top-[-7px] left-[20px] bg-white px-[7px] pe-[15px] z-10">
@@ -151,4 +136,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default ConfirmPassword;

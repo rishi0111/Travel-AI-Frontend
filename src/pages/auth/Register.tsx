@@ -6,9 +6,10 @@ import video from '../../assets/videos/signup-video.mp4';
 import emailIcon from '../../assets/email-icon.svg';
 import { useForm } from 'react-hook-form';
 import SocialLogin from '../../components/auth/SocialLogin';
-import AuthButton from './AuthButton';
+import AuthButton from '../../components/auth/AuthButton';
 import { useRegisterUserMutation } from '../../store/features/auth/authApi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 interface RegisterFormInputs {
   username: string;
@@ -27,6 +28,7 @@ const Register = () => {
   } = useForm<RegisterFormInputs>();
 
   const password = watch("password");
+  const navigate = useNavigate();
 
   const onSubmit = async (data: RegisterFormInputs) => {
     try {
@@ -36,7 +38,16 @@ const Register = () => {
         password: data.password,
       }
       const response = await registerUser(userData);
-      console.log(response);
+
+      if (response.error) {
+        // @ts-expect-error error
+        toast.error(response.error.data?.msg || "An unexpected error occurred")
+        return
+      } else {
+        toast.success(response?.data?.msg || "Account created successfully")
+        navigate("/")
+      }
+
     } catch (error) {
       console.log("Error: ", error)
     }
