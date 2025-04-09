@@ -1,25 +1,43 @@
 import DeleteIcon from "../../../assets/dlt-icon.svg";
 import { useDispatch } from "react-redux";
 import { setActiveSidebar } from "../../../store/features/sidebar/sidebarSlice";
+import CollapseIcon from "../../../assets/collapseIcon.svg";
+import EditIcon from "../../../assets/edit-icon.svg";
+import { useState } from "react";
+
 const History = () => {
   const dispatch = useDispatch();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleCloseHistory = () => {
     dispatch(setActiveSidebar(""));
   };
 
+  const handleToggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
     <>
-      <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-[98] lg:hidden"></div>
-      <div className="absolute top-0 right-0 lg:static z-[99] bg-white w-[250px] border border-[#E5E7EB] h-screen">
-        <div className="py-[20px] px-[16px] flex justify-between items-center border-b border-[#E5E7EB]">
+      <div className={`fixed top-0 left-0 w-full h-full bg-black opacity-50 z-[98] ${isCollapsed ? 'hidden' : ''} lg:hidden`}></div>
+      <button
+        onClick={handleToggleCollapse}
+        className="absolute top-[14px] right-[15px] z-[100] bg-[#ffffff] h-[34px] hover:bg-[#E7ECF9] w-[34px] h rounded-[6px] flex flex-col justify-center items-center gap-[4px] cursor-pointer"
+      >
+        <img src={CollapseIcon} alt="Collapse" className="" />
+      </button>
+      <div className={`absolute top-0 right-0 lg:static z-[99] bg-white ${isCollapsed ? 'w-0' : 'w-[250px]'} border border-[#E5E7EB] h-screen transition-width duration-300 overflow-hidden`}>
+        <div className="py-[20px] px-[16px] flex justify-between items-center border-b border-[#E5E7EB] relative">
           <h1 className="text-[18px] leading-[24px] font-semibold text-[#05073C]">History</h1>
-          <button
+          {/* <button
             onClick={handleCloseHistory}
             className="cursor-pointer flex flex-col justify-center items-center gap-[4px] top-[50px] right-[-30px] z-[999] bg-[#ffffff] h-[20px] w-[34px] rounded-[0px_10px_10px_0px]"
           >
             <span className="block w-[21px] h-[2px] bg-black rotate-45"></span>
-            <span className="block w-[21px] h-[2px] bg-black -rotate-45 mt-[-6px] "></span>
+            <span className="block w-[21px] h-[2px] bg-black -rotate-45 mt-[-6px]"></span>
+          </button> */}
+          <button className="text-gray-500 h-[34px] w-[34px] hover:bg-[#E7ECF9] cursor-pointer rounded-[8px] flex items-center justify-center absolute top-[14px] right-[55px]" title="New Chat">
+            <img src={EditIcon} alt="Edit" className="w-[20px] h-[20px]" />
           </button>
         </div>
         <div className="p-[16px] h-[calc(100vh-70px)] overflow-y-auto">

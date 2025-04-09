@@ -35,7 +35,7 @@ const Sidebar = () => {
       {/* Toggle Button for Mobile */}
       {isOpen ? (
         <button
-          className="absolute md:hidden flex flex-col justify-center items-center gap-[4px] top-[50px] right-[-34px] sm:right-[-34px] z-[999] bg-[#ffffff] h-[34px] w-[34px] rounded-[0px_10px_10px_0px]"
+          className="absolute md:hidden flex flex-col justify-center items-center gap-[4px] top-[50px] right-[-34px] sm:right-[-34px] z-[10000] bg-[#ffffff] h-[34px] w-[34px] rounded-[0px_10px_10px_0px]"
           onClick={toggleSidebar}
         >
           <span className="block w-[20px] h-[2px] bg-black rotate-45"></span>
@@ -43,7 +43,7 @@ const Sidebar = () => {
         </button>
       ) : (
         <button
-          className="md:hidden flex flex-col justify-center items-center gap-[4px] fixed top-4 right-4 z-[99] bg-[#e7ecf9] h-[34px] w-[34px] rounded-[8px]"
+          className="md:hidden flex flex-col justify-center items-center gap-[4px] fixed top-4 left-4 z-[98] bg-[#e7ecf9] h-[34px] w-[34px] rounded-[8px]"
           onClick={toggleSidebar}
         >
           <span className="block w-[18px] h-[2px] bg-[#0D3FC6]"></span>
@@ -53,20 +53,20 @@ const Sidebar = () => {
       )}
 
       {isOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-[98]"></div>
+        <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-[1000]"></div>
       )}
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0  h-full w-[100%] max-w-[270px] sm:max-w-[350px] md:max-w-auto md:w-[275px] bg-white z-[99] overflow-hidden transition-transform transform ${isOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed top-0 left-0  h-full w-[100%] max-w-[270px] sm:max-w-[350px] md:max-w-auto md:w-[275px] bg-white z-[1000] overflow-hidden transition-transform transform ${isOpen ? "translate-x-0" : "-translate-x-full"
           } md:translate-x-0 border-r border-gray-200`}
       >
         <div className="py-[13px] px-[16px] flex items-center justify-between border-b border-[#E5E7EB] gap-[10px]">
           <div className="flex items-center">
             <img src="./chat-logo.svg" alt="Logo" className="w-[162px]" />
           </div>
-          <button className="text-gray-500 h-[34px] w-[34px] bg-[#E7ECF9] cursor-pointer rounded-[8px] flex items-center justify-center">
+          {/* <button className="text-gray-500 h-[34px] w-[34px] bg-[#E7ECF9] cursor-pointer rounded-[8px] flex items-center justify-center">
             <img src={EditIcon} alt="Edit" className="w-[18px] h-[18px]" />
-          </button>
+          </button> */}
         </div>
 
         {/* <div className="p-[16px]">

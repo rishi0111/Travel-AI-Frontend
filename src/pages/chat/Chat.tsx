@@ -22,7 +22,7 @@ const Chat = () => {
         <div className="flex">
 
             {/* Main Content */}
-            <div className={`flex-1 md:ms-[275px]  ${isHistoryOpen ? 'w-[calc(100vw-600px)]' : 'w-[-webkit-fill-available]'}`}>
+            <div className="flex-1 md:ms-[275px] w-[calc(100vw-600px)]">
                 <div className="h-[calc(100vh-95px)] overflow-y-auto py-[40px] pt-[60px] sm:pt-[30px] sm:py-[30px]">
                     {/* Hero Section */}
                     <ChatHeading />
