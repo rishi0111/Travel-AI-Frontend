@@ -1,17 +1,35 @@
 import { signInWithGoogle, signInWithFacebook } from "../../utils/firebaseConfig";
 import googleIcon from '../../assets/google-icon.svg';
 import facebookIcon from '../../assets/facebook-icon.svg';
+import { useSocialLoginMutation } from "../../store/features/auth/authApi";
+import { encryptData, LoginFormInputs } from "../../utils/ecryptData";
 
 const SocialLogin = () => {
+     const [socialLogin] = useSocialLoginMutation();
+
      const handleGoogleSignIn = async () => {
           try {
                const result = await signInWithGoogle();
                if (result) {
                     const user = result.user;
-                    console.log("User: ", user)
+                    const email = user.email ?? '';
+                    const displayName = user.displayName?.replace(/\s+/g, '');
+                    const uid = user.uid.substring(0, 4);
+                    const username = `${displayName}${uid}`.toLowerCase();
+
+                    const userData: LoginFormInputs = {
+                         email: email,
+                         username: username,
+                    }
+
+                    const encryptedUserData = encryptData(userData);
+
+                    const response = await socialLogin(encryptedUserData);
+                    console.log("Response: ", response);
+                    console.log("User: ", user);
                }
           } catch (error) {
-               console.log("Error: ", error)
+               console.log("Error: ", error);
           }
      };
 
@@ -20,7 +38,21 @@ const SocialLogin = () => {
                const result = await signInWithFacebook();
                if (result) {
                     const user = result.user;
-                    console.log("User: ", user)
+                    const email = user.email ?? '';
+                    const displayName = user.displayName?.replace(/\s+/g, '');
+                    const uid = user.uid.substring(0, 4);
+                    const username = `${displayName}${uid}`.toLowerCase();
+
+                    const userData: LoginFormInputs = {
+                         email: email,
+                         username: username,
+                    }
+
+                    const encryptedUserData = encryptData(userData);
+
+                    const response = await socialLogin(encryptedUserData);
+                    console.log("Response: ", response);
+                    console.log("User: ", user);
                }
           } catch (error) {
                console.log("Error: ", error)

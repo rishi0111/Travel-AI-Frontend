@@ -1,18 +1,29 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import Cookies from 'js-cookie';
 
 export const authApi = createApi({
      reducerPath: "authApi",
      baseQuery: fetchBaseQuery({
-     baseUrl: `${import.meta.env.VITE_API_URL}/auth`,
+          baseUrl: `${import.meta.env.VITE_API_URL}/auth`,
           credentials: "include",
+          prepareHeaders: (headers, { endpoint }) => {
+               const token = Cookies.get('accessToken');
+
+               if (token && endpoint !== 'loginUser' && endpoint !== 'registerUser') {
+                    headers.set('Authorization', `Bearer ${token}`);
+               }
+
+               return headers;
+          },
      }),
 
      endpoints: (builder) => ({
 
           loginUser: builder.mutation({
                query: (credentials) => ({
-                    url: "/login",
+                    url: "/login/",
                     method: "POST",
+
                     body: credentials,
                }),
           }),
@@ -57,7 +68,14 @@ export const authApi = createApi({
                }),
           }),
 
+          socialLogin: builder.mutation({
+               query: (credentials) => ({
+                    url: "/",
+                    method: "POST",
+                    body: credentials,
+               }),
+          }),
      }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation, useChangePasswordMutation, useRequestOtpMutation, useVerifyOtpMutation, useSetNewPasswordMutation } = authApi;
+export const { useLoginUserMutation, useRegisterUserMutation, useChangePasswordMutation, useRequestOtpMutation, useVerifyOtpMutation, useSetNewPasswordMutation, useSocialLoginMutation } = authApi;

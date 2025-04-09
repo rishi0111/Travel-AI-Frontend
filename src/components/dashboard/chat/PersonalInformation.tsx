@@ -1,5 +1,5 @@
-import AiAssistantIcon from "../../assets/ai-assistant-icon.svg";
-import SelectIcon from "../../assets/arrow-bottom.svg";
+import AiAssistantIcon from "../../../assets/ai-assistant-icon.svg";
+import SelectIcon from "../../../assets/arrow-bottom.svg";
 
 const PersonalInformation = () => {
      return (

@@ -4,12 +4,13 @@ import airplane from '../../assets/plane-icon.svg';
 import Logo from '../../assets/site-logo.svg';
 import LockIcon from '../../assets/lock-icon.svg';
 import video from '../../assets/videos/login-video.mp4';
-import { Link } from 'react-router-dom';
-import { encryptData } from '../../utils/ecryptData';
+import { Link, useNavigate } from 'react-router-dom';
 import SocialLogin from '../../components/auth/SocialLogin';
-import AuthButton from './AuthButton';
+import AuthButton from '../../components/auth/AuthButton';
 import InputField from '../../components/common/InputField';
 import { useLoginUserMutation } from '../../store/features/auth/authApi';
+import { toast } from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 interface LoginFormInputs {
   email: string;
@@ -18,6 +19,8 @@ interface LoginFormInputs {
 
 const Login = () => {
   const [loginUser] = useLoginUserMutation();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -26,13 +29,26 @@ const Login = () => {
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const encryptedData = encryptData(data);
-      console.log("Encrypted Data:", encryptedData);
-      console.log("Result: ", data)
-      const response = await loginUser(encryptedData);
-      console.log("Response: ", response)
+      const userData = {
+        username_or_email: data.email,
+        password: data.password,
+      };
+
+      const response = await loginUser(userData);
+      if (response.error) {
+        // @ts-expect-error error
+        toast.error(response.error.data?.msg || "An unexpected error occurred");
+        return;
+      } else {
+        if (response.data && response.data.access) {
+          Cookies.set('accessToken', response.data.access, { expires: 7 });
+        }
+        toast.success(response?.data?.msg || "Account created successfully");
+        navigate("/chat");
+      }
     } catch (error) {
-      console.log("Error: ", error)
+      console.log("Error: ", error);
+      toast.error("Invalid email or password");
     }
   };
 

@@ -1,10 +1,8 @@
-import CloseIcon from "../../assets/modalClose-icon.svg";
-import PhoneIcon from "../../assets/phone-icon.svg";
-import WhatsappIcon from "../../assets/whatsapp-icon.svg";
-import userIcon from '../../assets/user-icon.svg';
-import emailIcon from '../../assets/email-icon.svg';
-import numberIcon from '../../assets/number-icon.svg';
-
+import PhoneIcon from "../../../assets/phone-icon.svg";
+import WhatsappIcon from "../../../assets/whatsapp-icon.svg";
+import userIcon from '../../../assets/user-icon.svg';
+import emailIcon from '../../../assets/email-icon.svg';
+import numberIcon from '../../../assets/number-icon.svg';
 
 const ContactUsModal = () => {
   return (
@@ -16,7 +14,7 @@ const ContactUsModal = () => {
             <div className="flex justify-between items-center p-[25px] py-[15px] border-b border-[#E7ECF9]">
                 <h3 className="text-[20px] sm:text-[28px] font-semibold text-[#05073C]">Conatct Us</h3>
                 <button className="cursor-pointer w-[30px] sm:w-[35px] h-[30px] sm:h-[35px] bg-[#E7ECF9] rounded-full flex items-center justify-center">
-                <img src={CloseIcon} alt="Close" />
+                <img src="./modalClose-icon.svg" alt="Close" />
                 </button>
             </div>
             <div className="px-[15px] py-[10px] sm:px-[25px] sm:py-[20px] max-h-[calc(100vh-100px)] overflow-y-auto">

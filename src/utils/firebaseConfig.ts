@@ -22,7 +22,7 @@ const facebookProvider = new FacebookAuthProvider();
 const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
-    console.log("Google User Info:", result.user);
+    // console.log("Google User Info:", result.user);
     return result;
   } catch (error) {
     console.error("Error during Google sign-in:", error);

@@ -1,4 +1,5 @@
-import SendIcon from "../../assets/inputSend-icon.svg";
+import SendIcon from "../../../assets/inputSend-icon.svg";
+
 const ChatInput = () => {
   return (
       <div className="max-w-4xl mx-auto px-[10px] sm:px-8 mb-[30px]">

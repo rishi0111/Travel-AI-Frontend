@@ -1,4 +1,4 @@
-import { destinations } from "../../utils/dummyData";
+import { destinations } from "../../../utils/dummyData";
 
 const PopularDestinations = () => {
      return (

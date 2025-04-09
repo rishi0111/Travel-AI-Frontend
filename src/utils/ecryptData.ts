@@ -1,8 +1,9 @@
 import CryptoJS from 'crypto-js';
 
-interface LoginFormInputs {
-     email: string;
-     password: string;
+export interface LoginFormInputs {
+     email?: string;
+     password?: string;
+     username?: string;
 }
 
 export const encryptData = (data: LoginFormInputs) => {
@@ -19,7 +20,7 @@ export const encryptData = (data: LoginFormInputs) => {
      );
 
      return {
-          encryptedData: encrypted.ciphertext.toString(CryptoJS.enc.Base64),
+          token: encrypted.ciphertext.toString(CryptoJS.enc.Base64),
           iv: iv.toString(CryptoJS.enc.Base64),
      };
 };
