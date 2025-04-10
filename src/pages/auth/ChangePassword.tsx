@@ -17,7 +17,6 @@ const ChangePassword = () => {
 
   const onSubmit = (data: ChangePasswordInputs) => {
     console.log('Password Change Data:', data);
-    // Handle password change logic here
   };
 
   const newPassword = watch("newPassword");

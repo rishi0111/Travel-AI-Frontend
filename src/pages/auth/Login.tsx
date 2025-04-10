@@ -11,7 +11,7 @@ import InputField from '../../components/common/InputField';
 import { useLoginUserMutation } from '../../store/features/auth/authApi';
 import { toast } from 'react-hot-toast';
 import Cookies from 'js-cookie';
-
+import { useState } from 'react';
 interface LoginFormInputs {
   email: string;
   password: string;
@@ -20,6 +20,7 @@ interface LoginFormInputs {
 const Login = () => {
   const [loginUser] = useLoginUserMutation();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -107,22 +108,27 @@ const Login = () => {
               }}
             />
 
-            <InputField<LoginFormInputs>
-              label="Password"
-              name="password"
-              type="password"
-              placeholder="Enter your password"
-              icon={LockIcon}
-              register={register}
-              error={errors.password}
-              validation={{
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters"
-                }
-              }}
-            />
+            <div className='relative'>
+              <InputField<LoginFormInputs>
+                label="Password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                icon={LockIcon}
+                register={register}
+                error={errors.password}
+                validation={{
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters"
+                  }
+                }}
+              />
+              
+              <img src={showPassword ? "/eye-open.svg" : "/eye-close.svg"} alt="Eye Close" className=' cursor-pointer absolute right-5 top-0 bottom-0 my-auto w-6 h-6' onClick={() => setShowPassword(!showPassword)} />
+            </div>
+
 
             <div className="flex justify-end my-[23px]">
               <Link to="/forgot-password" className="text-[14px] text-[#00000080] hover:text-[#0D3FC6]">

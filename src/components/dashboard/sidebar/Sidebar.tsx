@@ -1,33 +1,24 @@
 import { useState } from "react";
-import EditIcon from "../../assets/edit-icon.svg";
-import AiChatIcon from "../../assets/ai-chat-icon.svg";
-import PaymentsIcon from "../../assets/payment-icon.svg";
-import BookingsIcon from "../../assets/bookings-icon.svg";
-import ContactUsIcon from "../../assets/contact-us-icon.svg";
-import HistoryIcon from "../../assets/history-icon.svg";
-import TermsIcon from "../../assets/terms-icon.svg";
-import PrivacyPolicyIcon from "../../assets/privacy-policy-icon.svg";
-import ArrowDownIcon from "../../assets/arrow-bottom.svg";
+import AiChatIcon from "../../../assets/ai-chat-icon.svg";
+import PaymentsIcon from "../../../assets/payment-icon.svg";
+import BookingsIcon from "../../../assets/bookings-icon.svg";
+import ContactUsIcon from "../../../assets/contact-us-icon.svg";
+import TermsIcon from "../../../assets/terms-icon.svg";
+import PrivacyPolicyIcon from "../../../assets/privacy-policy-icon.svg";
+import ArrowDownIcon from "../../../assets/arrow-bottom.svg";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setActiveSidebar } from "../../store/features/sidebar/sidebarSlice";
+import SidebarDropdown from "./SidebarDropdown";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const dispatch = useDispatch();
   const location = useLocation();
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
-
   const isActive = (path: string) => {
     return location.pathname === path;
-  };
-
-  const handleSidebarClick = (path: string) => {
-    dispatch(setActiveSidebar(path));
   };
 
   return (
@@ -64,28 +55,11 @@ const Sidebar = () => {
           <div className="flex items-center">
             <img src="./chat-logo.svg" alt="Logo" className="w-[162px]" />
           </div>
-          {/* <button className="text-gray-500 h-[34px] w-[34px] bg-[#E7ECF9] cursor-pointer rounded-[8px] flex items-center justify-center">
-            <img src={EditIcon} alt="Edit" className="w-[18px] h-[18px]" />
-          </button> */}
         </div>
-
-        {/* <div className="p-[16px]">
-          <div className="relative">
-            <span className="absolute inset-y-0 left-[13px] flex items-center text-gray-400">
-              <img src={SearchIcon} alt="Search" className="w-[18px] h-[18px]" />
-            </span>
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-full pl-[40px] pr-[10px] py-[9px] rounded-[8px] text-[14px] font-semibold leading-[20px] placeholder:text-[#6B7280] border border-[#E5E7EB] focus:outline-none"
-            />
-          </div>
-        </div> */}
         <div className="h-[calc(100vh-135px)] overflow-y-auto px-[16px]">
           <nav className="mt-4">
             <Link
               to="/chat"
-              onClick={() => handleSidebarClick("/chat")}
               className={`flex items-center px-[10px] py-[8px] rounded-[8px] text-[16px] leading-[24px] font-semibold mb-[8px] gap-[12px] ${isActive("/chat")
                 ? "bg-[#E7ECF9] text-[#2563EB]"
                 : "text-[#636C76] hover:bg-[#E7ECF9]"
@@ -96,7 +70,6 @@ const Sidebar = () => {
             </Link>
             <Link
               to="/payments"
-              onClick={() => handleSidebarClick("/payments")}
               className={`flex items-center px-[10px] py-[8px] rounded-[8px] text-[16px] leading-[24px] font-semibold mb-[8px] gap-[12px] ${isActive("/payments")
                 ? "bg-[#E7ECF9] text-[#2563EB]"
                 : "text-[#636C76] hover:bg-[#E7ECF9]"
@@ -107,7 +80,6 @@ const Sidebar = () => {
             </Link>
             <Link
               to="/bookings"
-              onClick={() => handleSidebarClick("/bookings")}
               className={`flex items-center px-[10px] py-[8px] rounded-[8px] text-[16px] leading-[24px] font-semibold mb-[8px] gap-[12px] ${isActive("/bookings")
                 ? "bg-[#E7ECF9] text-[#2563EB]"
                 : "text-[#636C76] hover:bg-[#E7ECF9]"
@@ -118,7 +90,6 @@ const Sidebar = () => {
             </Link>
             <Link
               to="/contact"
-              onClick={() => handleSidebarClick("/contact")}
               className={`flex items-center px-[10px] py-[8px] rounded-[8px] text-[16px] leading-[24px] font-semibold mb-[8px] gap-[12px] ${isActive("/contact")
                 ? "bg-[#E7ECF9] text-[#2563EB]"
                 : "text-[#636C76] hover:bg-[#E7ECF9]"
@@ -127,23 +98,13 @@ const Sidebar = () => {
               <img src={ContactUsIcon} alt="Contact Us" className="" />
               <span>Contact Us</span>
             </Link>
-            <div
-              onClick={() => handleSidebarClick("/history")}
-              className={`flex items-center cursor-pointer px-[10px] py-[8px] rounded-[8px] text-[16px] leading-[24px] font-semibold mb-[8px] gap-[12px] ${isActive("/history")
-                ? "bg-[#E7ECF9] text-[#2563EB]"
-                : "text-[#636C76] hover:bg-[#E7ECF9]"
-                }`}
-            >
-              <img src={HistoryIcon} alt="History" className="" />
-              <span>History</span>
-            </div>
+
           </nav>
 
           <div className="pt-[16px] border-t border-[#E5E7EB]">
             <h3 className="text-[18px] font-semibold text-[#05073C] mb-2 ps-[3px]">Legal</h3>
             <Link
               to="/terms"
-              onClick={() => handleSidebarClick("/terms")}
               className={`flex items-center px-[10px] py-[8px] rounded-[8px] text-[16px] leading-[24px] font-semibold mb-[8px] gap-[12px] ${isActive("/terms")
                 ? "bg-[#E7ECF9] text-[#2563EB]"
                 : "text-[#636C76] hover:bg-[#E7ECF9]"
@@ -154,7 +115,6 @@ const Sidebar = () => {
             </Link>
             <Link
               to="/privacy-policy"
-              onClick={() => handleSidebarClick("/privacy-policy")}
               className={`flex items-center px-[10px] py-[8px] rounded-[8px] text-[16px] leading-[24px] font-semibold mb-[8px] gap-[12px] ${isActive("/privacy-policy")
                 ? "bg-[#E7ECF9] text-[#2563EB]"
                 : "text-[#636C76] hover:bg-[#E7ECF9]"
@@ -178,10 +138,7 @@ const Sidebar = () => {
             <img src={ArrowDownIcon} alt="Arrow Down" className="absolute right-[10px] top-[50%] translate-y-[-50%] rotate-180" />
           </div>
           {showProfile && (
-            <div className="absolute bottom-[75px] left-[50%] translate-x-[-50%] bg-white rounded-[15px_0px_15px_0px] shadow-lg border border-[#E5E7EB] w-full py-[6px] px-[6px] max-w-[265px]">
-              <button type="button" className="text-[14px] w-full text-start text-[#636C76] font-semibold px-[6px] py-[8px] block hover:bg-[#E7ECF9] border border-white rounded-[5px] hover:border hover:border-[#0D3FC6]">Logout</button>
-              <Link to="/change-password" className="text-[14px] text-[#636C76] font-semibold px-[6px] py-[8px] block hover:bg-[#E7ECF9] border border-white rounded-[5px] hover:border hover:border-[#0D3FC6]">Change Password</Link>
-            </div>
+            <SidebarDropdown />
           )}
         </div>
       </div>
