@@ -3,12 +3,13 @@ import authReducer from './features/auth/authSlice';
 import { authApi } from './features/auth/authApi';
 import sidebarReducer from './features/sidebar/sidebarSlice';
 import { logger } from './middleware/logger';
-
+import { contactUsApi } from './features/contact-us/contactUsApi';
 export const store = configureStore({
      reducer: {
           auth: authReducer,
           sidebar: sidebarReducer,
           [authApi.reducerPath]: authApi.reducer,
+          [contactUsApi.reducerPath]: contactUsApi.reducer,
      },
      middleware: (getDefaultMiddleware) =>
           getDefaultMiddleware().concat(

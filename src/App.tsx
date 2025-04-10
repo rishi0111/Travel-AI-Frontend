@@ -30,8 +30,8 @@ function App() {
           <Route path="/bookings" element={<ProtectedRoute element={<Layout><Bookings /></Layout>} />} />
           <Route path="/payments" element={<ProtectedRoute element={<Layout><Payment /></Layout>} />} />
           <Route path="/contact" element={<ProtectedRoute element={<Layout><ContactUs /></Layout>} />} />
-          <Route path="/change-password" element={<ProtectedRoute element={<Layout><ChangePassword /></Layout>} />} />
           <Route path="/admin-change-password" element={<ProtectedRoute element={<Layout><ChangePasswordAdmin /></Layout>} />} />
+          <Route path="/change-password" element={<ProtectedRoute element={<ChangePassword />} />} />
         </Routes>
       </Router>
     </>

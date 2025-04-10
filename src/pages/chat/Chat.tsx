@@ -136,7 +136,7 @@ const Chat = () => {
                 </div>
                 <ChatInput />
             </div>
-            {isHistoryOpen && <History />}
+            <History />
         </div >
     );
 };
