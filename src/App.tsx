@@ -13,6 +13,7 @@ import Bookings from './pages/bookings/Bookings';
 import Payment from './pages/payments/Payments';
 import ContactUs from './pages/contact/ContactUs';
 import Layout from './Layout';
+import ChangePasswordAdmin from './pages/changePassword/AdminChangePassword';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/payments" element={<ProtectedRoute element={<Layout><Payment /></Layout>} />} />
           <Route path="/contact" element={<ProtectedRoute element={<Layout><ContactUs /></Layout>} />} />
           <Route path="/change-password" element={<ProtectedRoute element={<Layout><ChangePassword /></Layout>} />} />
+          <Route path="/admin-change-password" element={<ProtectedRoute element={<Layout><ChangePasswordAdmin /></Layout>} />} />
         </Routes>
       </Router>
     </>
