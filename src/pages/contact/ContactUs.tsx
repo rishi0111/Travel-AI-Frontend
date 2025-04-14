@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useContactUsMutation } from '../../store/features/contact-us/contactUsApi';
 import { toast } from 'react-hot-toast';
+import Loader from '../../components/common/Loader';
 
 interface ContactUsFormInputs {
     first_name: string;
@@ -12,7 +13,7 @@ interface ContactUsFormInputs {
 }
 
 const ContactUs = () => {
-    const [contactUs] = useContactUsMutation();
+    const [contactUs, { isLoading }] = useContactUsMutation();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data: ContactUsFormInputs) => {
@@ -76,7 +77,7 @@ const ContactUs = () => {
                                     <textarea {...register('message', { required: true })} className="bg-white w-full border border-[#D5D5D8] rounded-[8px] py-[13px] px-[20px] text-[12px] sm:text-[14px] leading-[18px] text-[#05073C] focus:outline-none focus:border-[#05073C] h-[130px]" placeholder="Enter your message" />
                                     {errors.message && <span>This field is required</span>}
                                 </div>
-                                <button type="submit" className="bg-[#0D3FC6] text-white py-[13px] px-[20px] text-[12px] sm:text-[14px] leading-[18px] rounded-[8px] w-max cursor-pointer">Send Message</button>
+                                <button type="submit" className={`bg-[#0D3FC6] text-white py-[13px] px-[20px] text-[12px] sm:text-[14px] leading-[18px] rounded-[8px] w-34 cursor-pointer ${isLoading ? "opacity-50" : "opacity-100"}`} disabled={isLoading}>{isLoading ? <Loader /> : "Send Message"}</button>
                             </form>
                         </div>
                     </div>

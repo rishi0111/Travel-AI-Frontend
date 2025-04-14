@@ -16,7 +16,7 @@ interface ChangePasswordInputs {
 
 const ConfirmPassword = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<ChangePasswordInputs>();
-  const [setNewPassword] = useSetNewPasswordMutation();
+  const [setNewPassword, { isLoading }] = useSetNewPasswordMutation();
   const navigate = useNavigate();
 
 
@@ -137,7 +137,7 @@ const ConfirmPassword = () => {
                 )}
               </div>
 
-              <AuthButton>CHANGE YOUR PASSWORD</AuthButton>
+              <AuthButton isLoading={isLoading}>CHANGE YOUR PASSWORD</AuthButton>
             </form>
           </div>
         </div>

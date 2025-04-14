@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import ForgotPassword from './pages/auth/ForgotPassword';
-import ChangePassword from './pages/auth/ChangePassword';
 import OTP from './pages/auth/OtpVerification';
 import Chat from './pages/chat/Chat';
 import PlanDetails from './pages/planDetails/PlanDetails';
@@ -30,8 +29,7 @@ function App() {
           <Route path="/bookings" element={<ProtectedRoute element={<Layout><Bookings /></Layout>} />} />
           <Route path="/payments" element={<ProtectedRoute element={<Layout><Payment /></Layout>} />} />
           <Route path="/contact" element={<ProtectedRoute element={<Layout><ContactUs /></Layout>} />} />
-          <Route path="/admin-change-password" element={<ProtectedRoute element={<Layout><ChangePasswordAdmin /></Layout>} />} />
-          <Route path="/change-password" element={<ProtectedRoute element={<ChangePassword />} />} />
+          <Route path="/change-password" element={<ProtectedRoute element={<Layout><ChangePasswordAdmin /></Layout>} />} />
         </Routes>
       </Router>
     </>

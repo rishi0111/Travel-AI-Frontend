@@ -6,13 +6,14 @@ import ContactUsIcon from "../../../assets/contact-us-icon.svg";
 import TermsIcon from "../../../assets/terms-icon.svg";
 import PrivacyPolicyIcon from "../../../assets/privacy-policy-icon.svg";
 import ArrowDownIcon from "../../../assets/arrow-bottom.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SidebarDropdown from "./SidebarDropdown";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -53,7 +54,7 @@ const Sidebar = () => {
         } md:translate-x-0 border-r border-gray-200`}
       >
         <div className="py-[13px] px-[16px] flex items-center justify-between border-b border-[#E5E7EB] gap-[10px]">
-          <div className="flex items-center">
+          <div className="flex items-center cursor-pointer" onClick={() => navigate("/chat")}>
             <img src="./chat-logo.svg" alt="Logo" className="w-[162px]" />
           </div>
         </div>

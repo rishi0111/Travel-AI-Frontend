@@ -12,13 +12,15 @@ import { useLoginUserMutation } from '../../store/features/auth/authApi';
 import { toast } from 'react-hot-toast';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import Loader from '../../components/common/Loader';
+
 interface LoginFormInputs {
   email: string;
   password: string;
 }
 
 const Login = () => {
-  const [loginUser] = useLoginUserMutation();
+  const [loginUser, { isLoading }] = useLoginUserMutation();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -125,7 +127,7 @@ const Login = () => {
                   }
                 }}
               />
-              
+
               <img src={showPassword ? "/eye-open.svg" : "/eye-close.svg"} alt="Eye Close" className=' cursor-pointer absolute right-5 top-0 bottom-0 my-auto w-6 h-6' onClick={() => setShowPassword(!showPassword)} />
             </div>
 
@@ -135,8 +137,9 @@ const Login = () => {
                 Forgot your password?
               </Link>
             </div>
-
-            <AuthButton>LOGIN</AuthButton>
+            <AuthButton isLoading={isLoading}>
+              LOGIN
+            </AuthButton>
           </form>
 
           <SocialLogin />

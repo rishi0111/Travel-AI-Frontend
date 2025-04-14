@@ -20,7 +20,7 @@ interface RegisterFormInputs {
 }
 
 const Register = () => {
-  const [registerUser] = useRegisterUserMutation();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
   const {
     register,
     handleSubmit,
@@ -159,7 +159,7 @@ const Register = () => {
                         message: "Password must be at least 6 characters"
                       }
                     })}
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
                     placeholder="Enter your password"
                   />
@@ -196,7 +196,7 @@ const Register = () => {
               )}
             </div>
 
-            <AuthButton>SIGN UP</AuthButton>
+            <AuthButton isLoading={isLoading}>SIGN UP</AuthButton>
           </form>
 
           <SocialLogin />

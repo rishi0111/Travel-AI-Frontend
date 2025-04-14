@@ -14,7 +14,7 @@ interface ForgotPasswordInputs {
 }
 
 const ForgotPassword = () => {
-  const [requestOtp] = useRequestOtpMutation();
+  const [requestOtp, { isLoading }] = useRequestOtpMutation();
   const navigate = useNavigate();
 
   const {
@@ -109,7 +109,7 @@ const ForgotPassword = () => {
                 <span className="text-red-500 text-sm mt-1">{errors.email.message}</span>
               )}
             </div>
-            <AuthButton>RESET PASSWORD</AuthButton>
+            <AuthButton isLoading={isLoading}>RESET PASSWORD</AuthButton>
           </form>
 
           <div className="flex items-center my-[25px] w-full max-w-[290px] mx-auto">
