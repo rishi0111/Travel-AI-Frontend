@@ -28,7 +28,7 @@ const Bookings = () => {
     <div className="flex">
       <div className="md:ms-[275px] h-screen overflow-y-auto flex-1">
         <div className=" py-[15px] sm:py-[14px] mx-auto sm:px-[30px] px-[10px] border-b border-[#E5E7EB] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
-          <h1 className="text-[20px] sm:text-[24px] leading-[32px] font-bold text-[#05073C] max-w-[1240px] mx-auto">
+          <h1 className="text-center lg:text-start text-[20px] sm:text-[24px] leading-[32px] font-bold text-[#05073C] max-w-[1240px] mx-auto">
             My Bookings
           </h1>
         </div>

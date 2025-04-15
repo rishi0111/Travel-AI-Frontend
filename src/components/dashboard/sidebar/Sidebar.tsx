@@ -53,7 +53,7 @@ const Sidebar = () => {
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 border-r border-gray-200`}
       >
-        <div className="py-[13px] px-[16px] flex items-center justify-between border-b border-[#E5E7EB] gap-[10px]">
+        <div className="py-[15.5px] px-[16px] flex items-center justify-between border-b border-[#E5E7EB] gap-[10px]">
           <div className="flex items-center cursor-pointer" onClick={() => navigate("/chat")}>
             <img src="./chat-logo.svg" alt="Logo" className="w-[162px]" />
           </div>

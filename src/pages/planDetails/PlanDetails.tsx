@@ -22,12 +22,14 @@ const PlanDetails = () => {
 
       <div className="md:ms-[275px] h-screen overflow-y-auto flex-1">
         <div className=" py-[15px] sm:py-[44px] max-w-[1075px] mx-auto sm:px-[20px] px-[10px]">
-          <a
-            href="#"
-            className="inline-flex items-center bg-[#E7ECF9] rounded-[8px] text-[16px] leading-[24px] font-normal text-[#05073C] mb-[8px] gap-[5px] px-[18px] py-[10px]"
-          >
-            <img src={BackIcon} alt="Back" className="" /> Back
-          </a>
+          <div className="lg:text-start text-end">
+            <a
+              href="#"
+              className=" inline-flex items-center bg-[#E7ECF9] rounded-[8px] text-[16px] leading-[24px] font-normal text-[#05073C] mb-[8px] gap-[5px] px-[18px] py-[10px]"
+            >
+              <img src={BackIcon} alt="Back" className="" /> Back
+            </a>
+          </div>
           <ImageGrid />
           <div>
             {/* Location and Package Info */}

@@ -13,6 +13,8 @@ import Payment from './pages/payments/Payments';
 import ContactUs from './pages/contact/ContactUs';
 import Layout from './Layout';
 import ChangePasswordAdmin from './pages/changePassword/AdminChangePassword';
+import Terms from './pages/legal/terms';
+import PrivacyPolicy from './pages/legal/PrivacyPolicy';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="/payments" element={<ProtectedRoute element={<Layout><Payment /></Layout>} />} />
           <Route path="/contact" element={<ProtectedRoute element={<Layout><ContactUs /></Layout>} />} />
           <Route path="/change-password" element={<ProtectedRoute element={<Layout><ChangePasswordAdmin /></Layout>} />} />
+          <Route path="/terms" element={<ProtectedRoute element={<Layout><Terms /></Layout>} />} />
+          <Route path="/privacy-policy" element={<ProtectedRoute element={<Layout><PrivacyPolicy /></Layout>} />} />
         </Routes>
       </Router>
     </>
