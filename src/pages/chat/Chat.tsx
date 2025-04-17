@@ -14,13 +14,13 @@ import ContactInformation from "../../components/dashboard/chat/ContactInformati
 import TravellerDetails from "../../components/dashboard/chat/TravellerDetails";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import StaticChat from "../../components/dashboard/chat/StaticChat";
 
 const Chat = () => {
     const isHistoryOpen = useSelector((state: RootState) => state.sidebar.activeSidebar === "/history");
-
+   
     return (
         <div className="flex">
-
             {/* Main Content */}
             <div className="flex-1 md:ms-[275px] w-[calc(100vw-600px)]">
                 <div className="h-[calc(100vh-95px)] overflow-y-auto py-[40px] pt-[60px] sm:pt-[30px] sm:py-[30px]">
@@ -28,6 +28,10 @@ const Chat = () => {
                     <ChatHeading />
 
                     <div className="max-w-[1075px] mx-auto px-[10px] ms:px-[20px]">
+                        <StaticChat />
+              
+                        {/* <PopularDestinations /> */}
+
                         <div className="">
                             {/* AI Assistant Chat */}
                             <div className="max-w-[740px] mb-[30px]">
@@ -130,8 +134,6 @@ const Chat = () => {
                             </div>
 
                         </div>
-                        {/* Popular Destinations */}
-                        <PopularDestinations />
                     </div>
                 </div>
                 <ChatInput />

@@ -27,7 +27,7 @@ function App() {
           <Route path="/confirm-password" element={<PublicRoute element={<ConfirmPassword />} />} />
           <Route path="/otp-verification" element={<PublicRoute element={<OTP />} />} />
           <Route path="/chat" element={<ProtectedRoute element={<Layout><Chat /></Layout>} />} />
-          <Route path="/plan-details" element={<ProtectedRoute element={<Layout><PlanDetails /></Layout>} />} />
+          <Route path="/plan-details/:tour_id" element={<ProtectedRoute element={<Layout><PlanDetails /></Layout>} />} />
           <Route path="/bookings" element={<ProtectedRoute element={<Layout><Bookings /></Layout>} />} />
           <Route path="/payments" element={<ProtectedRoute element={<Layout><Payment /></Layout>} />} />
           <Route path="/contact" element={<ProtectedRoute element={<Layout><ContactUs /></Layout>} />} />

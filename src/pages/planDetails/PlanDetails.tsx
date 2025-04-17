@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackIcon from "../../assets/back-arrow.svg";
 import StarIcon from "../../assets/star-icon.svg";
 import BookedIcon from "../../assets/booked-icon.svg";
@@ -13,9 +13,24 @@ import Reviews from "../../components/dashboard/planDetails/Reviews";
 import { planOptions } from "../../utils/dummyData";
 import ImageGrid from "../../components/dashboard/planDetails/ImageGrid";
 import PriceCard from "../../components/dashboard/planDetails/PriceCard";
+import { useParams } from "react-router-dom";
+import { useGetPackagesByDestinationQuery } from "../../store/features/tours/toursApi";
+import { useDispatch } from "react-redux";
+import { setTourDetails } from "../../store/features/tours/toursSlice";
 
 const PlanDetails = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const { tour_id } = useParams();
+  const { data: tourDetails, isLoading, error } = useGetPackagesByDestinationQuery(tour_id);
+  const [tourDetailsData, setTourDetailsData] = useState(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (tourDetails) {
+      setTourDetailsData(tourDetails.data);
+      dispatch(setTourDetails(tourDetails.data));
+    }
+  }, [tourDetails, dispatch]);
 
   return (
     <div className="flex ">
@@ -36,15 +51,14 @@ const PlanDetails = () => {
             <div className="lg:px-[18px] px-[10px] mt-6">
               <div className="flex items-center lg:mb-[24px] mb-[15px] justify-between">
                 <span className="text-[14px] leading-[20px] font-normal text-[#4B5563]">
-                  Bali, Indonesia
+                  {tourDetails?.location || "Location not available"}
                 </span>
               </div>
 
               <div className="flex items-start justify-between mb-[30px] flex-col lg:flex-row gap-3 lg:gap-0">
                 <div className="">
                   <h1 className="text-[20px] sm:text-[24px] lg:text-[34px] md:leading-[46px] leading-[24px] sm:leading-[30px] font-bold text-[#05073C] mb-[15px]">
-                    7-Day Bali Adventure: Explore Ubud, Kuta, Seminyak, and
-                    Beyond!
+                    {tourDetailsData?.tour_title || "Title not available"}
                   </h1>
                   <div className="flex items-center gap-6 mt-2">
                     <div className="flex items-center text-[14px] leading-[20px] font-normal text-[#05073C]">
@@ -53,7 +67,7 @@ const PlanDetails = () => {
                         alt="Star"
                         className="w-[14px] h-[14px] mr-2"
                       />
-                      <span>4.8 (269)</span>
+                      <span>{tourDetails?.rating || "Rating not available"}</span>
                     </div>
                     <div className="flex items-center text-[14px] leading-[20px] font-normal text-[#05073C]">
                       <img
@@ -61,11 +75,11 @@ const PlanDetails = () => {
                         alt="Booked"
                         className="w-[14px] h-[14px] mr-2"
                       />
-                      <span>30K+ booked</span>
+                      <span>{tourDetails?.booked || "Booking info not available"}</span>
                     </div>
                   </div>
                 </div>
-                <PriceCard />
+                <PriceCard price={tourDetailsData?.adult_price} duration={tourDetailsData?.duration} />
               </div>
 
               {/* Price and Booking Info */}
