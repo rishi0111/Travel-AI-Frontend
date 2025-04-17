@@ -39,7 +39,7 @@ const Bookings = () => {
 
           {/* search and filter */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-            <div className="relative">
+            <div className="relative max-w-[350px] flex-1">
               <span className="absolute inset-y-0 left-[13px] flex items-center text-gray-400">
                 <img
                   src={SearchIcon}

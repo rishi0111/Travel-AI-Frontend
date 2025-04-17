@@ -57,7 +57,7 @@ const Packages = () => {
 
                {/* tabs content */}
                {activeTab === "cheapest" && (
-                    <div className="py-4 mb-[20px]">
+                    <div className="py-4 mb-[20px] px-[20px]">
                          <div className="w-[100%] overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
                               <div className="flex gap-[16px]">
                                    {packages.map((destination) => (

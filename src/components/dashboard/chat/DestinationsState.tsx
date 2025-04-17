@@ -1,5 +1,5 @@
-import DestinationList from "./DestinationList";
 import { useAppSelector } from "../../../store/hooks";
+import DestinationStateList from "./DestinationStateList";
 import { useState, useEffect } from "react";
 
 const DestinationsState = ({ onStateClick }: { onStateClick: (stateName: string) => void }) => {
@@ -19,7 +19,7 @@ const DestinationsState = ({ onStateClick }: { onStateClick: (stateName: string)
                     <div className="flex gap-[16px]">
                          {state?.length > 0 ? state?.map((destination: any, index: number) => (
                               <div key={destination.id} onClick={() => onStateClick(destination.name)}>
-                                   <DestinationList key={destination.id} destination={destination} index={index} />
+                                   <DestinationStateList key={destination.id} destination={destination} />
                               </div>
                          )) : <div className="w-full h-full flex items-center justify-center">
                               <p className="text-gray-500">No destinations found</p>

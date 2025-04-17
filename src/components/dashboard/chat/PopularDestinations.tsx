@@ -21,12 +21,12 @@ const PopularDestinations = () => {
           <div className="py-4 mb-[20px]">
                <h2 className="text-[20px] leading-[24px] font-semibold mb-[20px] text-[#05073C]">Popular Destinations</h2>
                <div className="w-[100%] overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-                    <div className="flex gap-[12px] ">
+                    <div className="flex gap-[16px]">
                          {countries?.length > 0 ? countries?.map((destination: any, index: number) => (
                               <div
                                    key={`destination-${destination.id}-${index}`}
                                    onClick={() => handleDestinationClick(destination)}
-                                   className={`px-2 ${selectedCountry === destination.name ? 'pointer-events-none opacity-50' : ''}`}
+                                   className={` ${selectedCountry === destination.name ? 'pointer-events-none opacity-50' : ''}`}
                               >
                                    <DestinationList destination={destination} index={index} />
                               </div>
