@@ -1,4 +1,4 @@
-const DestinationStateList = ({ destination }: { destination: any }) => {
+const DestinationStateList = ({ destination }: { destination: { id: string, name: string } }) => {
   return (
     <div
       key={destination.id}

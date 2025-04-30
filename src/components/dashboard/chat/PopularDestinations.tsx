@@ -6,7 +6,7 @@ import { useSendMessageMutation } from "../../../store/features/chat/chatApi";
 import { useNavigate, useLocation } from "react-router-dom";
 import { RootState } from "../../../store/store";
 
-const PopularDestinations = (destinations) => {
+const PopularDestinations = (destinations: { packages: { id: string, name: string }[] }) => {
      const dispatch = useDispatch();
      const navigate = useNavigate();
      const location = useLocation();
@@ -109,11 +109,11 @@ const PopularDestinations = (destinations) => {
      }
 
      return (
-          <div className="py-4 mb-[20px]">
+          <div className="py-7 mb-[20px]">
                <h2 className="text-[20px] leading-[24px] font-semibold mb-[20px] text-[#05073C]">Popular Destinations</h2>
-               <div className="w-[100%] overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+               <div className="w-[100%] overflow-x-auto scrollbar-hide">
                     <div className="flex gap-[16px]">
-                         {destinations?.packages?.length > 0 ? destinations?.packages?.map((destination: any, index: number) => (
+                         {destinations?.packages?.length > 0 ? destinations?.packages?.map((destination: { id: string, name: string }, index: number) => (
                               <div
                                    key={`destination-${destination.id}-${index}`}
                                    onClick={() => handleDestinationClick(destination.name)}

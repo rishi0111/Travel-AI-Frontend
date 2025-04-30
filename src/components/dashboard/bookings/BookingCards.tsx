@@ -48,6 +48,7 @@ const BookingCards = ({ booking, setSelectedBooking, setShowDetailModal }: {
           image: string;
           type: string;
      }
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
      setSelectedBooking: (booking: any) => void;
      setShowDetailModal: (show: boolean) => void;
 }) => {

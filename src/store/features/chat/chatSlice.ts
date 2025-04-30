@@ -4,8 +4,11 @@ interface Message {
      content: string;
      sender: string;
      responseType?: string;
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
      tourDetails?: any[];
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
      popularDestinations?: any[];
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
      tourPackages?: any[];
 }
 
@@ -18,7 +21,9 @@ interface TourDetail {
           longitude: string;
           zoom: number;
      };
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
      itinerary: any[];
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
      inclusion_exclusions: any[];
      // add other fields as needed
 }
@@ -28,6 +33,7 @@ interface ChatState {
      tourDetails?: TourDetail[];
      threadUid?: string;
      isLoading: boolean;
+     historyLoading: boolean;
 }
 
 const initialState: ChatState = {
@@ -35,6 +41,7 @@ const initialState: ChatState = {
      tourDetails: undefined,
      threadUid: undefined,
      isLoading: false,
+     historyLoading: false,
 };
 
 const chatSlice = createSlice({
@@ -58,9 +65,20 @@ const chatSlice = createSlice({
           },
           setLoading: (state, action) => {
                state.isLoading = action.payload;
+          },
+          setHistoryLoading: (state, action) => {
+               state.historyLoading = action.payload;
           }
      },
 });
 
-export const { addMessage, setTourDetails, clearTourDetails, threadUid, setMessages, setLoading } = chatSlice.actions;
+export const { 
+     addMessage, 
+     setTourDetails, 
+     clearTourDetails, 
+     threadUid, 
+     setMessages, 
+     setLoading,
+     setHistoryLoading 
+} = chatSlice.actions;
 export default chatSlice.reducer;

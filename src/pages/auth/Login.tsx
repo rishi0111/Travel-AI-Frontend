@@ -12,7 +12,6 @@ import { useLoginUserMutation } from '../../store/features/auth/authApi';
 import { toast } from 'react-hot-toast';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
-import Loader from '../../components/common/Loader';
 
 interface LoginFormInputs {
   email: string;

@@ -12,7 +12,7 @@ const Inclusion = () => {
                </h2>
                <div className="flex items-start gap-[10px] mt-[22px] flex-wrap sm:flex-nowrap">
                     <div className="w-full sm:w-2/3">
-                         {inclusion_exclusions?.map((inclusions) => (
+                         {inclusion_exclusions?.map((inclusions: { item_type: string, description: string }) => (
                               <>
                                    {inclusions?.item_type === "inclusion" && <div className="flex items-start gap-[20px] mb-[20px]">
                                         <div className="bg-[#EFF7F1] rounded-full h-[26px] w-full max-w-[26px] flex items-center justify-center">
@@ -29,7 +29,7 @@ const Inclusion = () => {
                     </div>
 
                     <div className="w-full sm:w-1/3">
-                         {inclusion_exclusions?.map((inclusions) => (
+                         {inclusion_exclusions?.map((inclusions: { item_type: string, description: string }) => (
                               <>
                                    {inclusions?.item_type === "exclusion" && <div className="flex items-start gap-[20px] mb-[20px]">
                                         <div className="bg-[#FFE5E5] rounded-full h-[26px] w-full max-w-[26px] flex items-center justify-center">

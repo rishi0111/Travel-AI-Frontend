@@ -4,16 +4,22 @@ import EditIcon from "../../../assets/edit-icon.svg";
 import { useState, useEffect } from "react";
 import { useGetThreadMessagesQuery, useGetChatHistoryQuery } from "../../../store/features/chat/chatApi";
 import { useDispatch } from "react-redux";
-import { threadUid as setThreadUid, setMessages, setTourDetails } from "../../../store/features/chat/chatSlice";
-import { useNavigate } from "react-router-dom";
+import { threadUid as setThreadUid, setMessages, setTourDetails, setHistoryLoading } from "../../../store/features/chat/chatSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
 const History = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const { data: threads } = useGetThreadMessagesQuery({});
   const [selectedThread, setSelectedThread] = useState<string | null>(null);
-  const { data: chatHistory } = useGetChatHistoryQuery(selectedThread);
+  const { data: chatHistory, isLoading: isChatHistoryLoading } = useGetChatHistoryQuery(selectedThread);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { threadUid: urlThreadUid } = useParams();
+
+  // Update the history loading state in the store
+  useEffect(() => {
+    dispatch(setHistoryLoading(isChatHistoryLoading));
+  }, [isChatHistoryLoading, dispatch]);
 
   const handleToggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -22,7 +28,7 @@ const History = () => {
   const handleHistoryClick = (thread: string | null) => {
     setSelectedThread(thread);
     dispatch(setThreadUid(thread));
-    navigate(`/chat?threadUid=${thread}`);
+    navigate(`/chat/${thread}`);
   }
 
   const handleNewChat = () => {
@@ -30,6 +36,14 @@ const History = () => {
     dispatch(setMessages([]));
     navigate("/chat");
   }
+
+  useEffect(() => {
+    // If there's a thread ID in the URL, select it
+    if (urlThreadUid && urlThreadUid !== selectedThread) {
+      setSelectedThread(urlThreadUid);
+      dispatch(setThreadUid(urlThreadUid));
+    }
+  }, [urlThreadUid, selectedThread, dispatch]);
 
   useEffect(() => {
     const reverseMessages = chatHistory?.data?.messages
@@ -40,22 +54,22 @@ const History = () => {
       let foundTourDetails = null;
       console.log("reverseMessages", reverseMessages)
       // Parse messages
-      const parsedMessages = reverseMessages?.map((msg: any) => {
+      const parsedMessages = reverseMessages?.map((msg: { context: string, message: string }) => {
         if (msg.context !== "AI") {
           return { content: msg.message, sender: "user" };
         } else {
           let content = "";
           let tourDetails = null;
           let responseType = "text";
-          
+          const parsed = JSON.parse(msg.message);
+
           try {
             // The entire message is a JSON string - parse it
-            const parsed = JSON.parse(msg.message);
             console.log("parsed", parsed);
-            
+
             // Extract response type
             responseType = parsed?.type || "text";
-            
+
             // Extract content based on different possible structures
             if (parsed?.response?.message) {
               content = parsed.response.message;
@@ -66,7 +80,7 @@ const History = () => {
             } else if (typeof parsed?.response === "string") {
               content = parsed.response;
             }
-            
+
             // Handle tour details for various response types
             if (responseType === "tour_packages" && parsed?.data) {
               tourDetails = parsed.data;
@@ -77,8 +91,8 @@ const History = () => {
             } else {
               // Try to find tour details in various locations
               tourDetails = parsed?.data?.tour_details ||
-                           parsed?.tour_details ||
-                           (parsed?.data && Array.isArray(parsed.data) ? parsed.data : null);
+                parsed?.tour_details ||
+                (parsed?.data && Array.isArray(parsed.data) ? parsed.data : null);
             }
           } catch (e) {
             console.log("Parse error:", e);
@@ -95,12 +109,30 @@ const History = () => {
             foundTourDetails = tourDetails;
           }
 
-          return {
-            content,
-            sender: "ai",
-            responseType: responseType,
-            tourDetails
-          };
+          if (responseType === "popular_destinations" && parsed?.data) {
+            return {
+              content,
+              sender: "ai",
+              responseType: responseType,
+              tourDetails,
+              popularDestinations: parsed.data
+            };
+          } else if (responseType === "tour_packages" && parsed?.data) {
+            return {
+              content,
+              sender: "ai",
+              responseType: responseType,
+              tourDetails,
+              tourPackages: parsed.data
+            };
+          } else {
+            return {
+              content,
+              sender: "ai",
+              responseType: responseType,
+              tourDetails
+            };
+          }
         }
       });
 
@@ -136,7 +168,21 @@ const History = () => {
         <div className="p-[16px] h-[calc(100vh-70px)] overflow-y-auto">
           <ul>
             {threads?.data?.map((thread: { id: number, uid: string, thread_name: string }) => (
-              <li key={thread.id} className="mb-[8px] relative group transition-all duration-300"><span onClick={() => handleHistoryClick(thread?.uid)} className="text-[14px] leading-[24px] bg-[#E7ECF9] cursor-pointer text-[#05073C] p-[8px] pe-[25px] rounded-[8px] hover:bg-[#E7ECF9] transition-all duration-300 block active:bg-[#E7ECF9] truncate">{thread?.thread_name || thread?.uid}</span> <span className="absolute top-[12px] right-[10px] cursor-pointer group-hover:block hidden"><img src={DeleteIcon} alt="Delete" className="" /></span></li>
+              <li key={thread.id} className="mb-[8px] relative group transition-all duration-300">
+                <span
+                  onClick={() => handleHistoryClick(thread?.uid)}
+                  className={`text-[14px] leading-[24px] cursor-pointer text-[#05073C] p-[8px] pe-[25px] rounded-[8px] transition-all duration-300 block truncate
+                    ${selectedThread === thread.uid ?
+                      'bg-gray-400 text-white font-medium' :
+                      'bg-[#E7ECF9] hover:bg-[#E7ECF9] active:bg-[#E7ECF9]'
+                    }`}
+                >
+                  {thread?.thread_name || thread?.uid}
+                </span>
+                <span className="absolute top-[12px] right-[10px] cursor-pointer group-hover:block hidden">
+                  <img src={DeleteIcon} alt="Delete" className="" />
+                </span>
+              </li>
             ))}
           </ul>
         </div>

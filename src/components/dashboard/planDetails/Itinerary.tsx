@@ -10,7 +10,7 @@ const Itinerary = () => {
                     Itinerary
                </h2>
                <div className="relative mt-8 mb-10 border-l-2 border-dashed border-[#0D9BC6] ms-[15px]">
-                    {itinerary?.map((iteration, index) => {
+                    {itinerary?.map((iteration: { time: string, title: string, desc: string }, index: number) => {
                          const isFirst = index === 0;
                          const isLast = index === itinerary.length - 1;
                          const circleStyle = isFirst || isLast

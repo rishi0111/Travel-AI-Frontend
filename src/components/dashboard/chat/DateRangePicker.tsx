@@ -43,29 +43,11 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onApply }) => {
 
      const handleApply = () => {
           if (startDate && endDate) {
-               // Calculate the number of days between dates
-               const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
-               const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 to include both start and end days
-               
-               // Format the dates for display
-               const formatDateForMessage = (date: Date) => {
-                    return date.toLocaleDateString('en-US', {
-                         day: 'numeric',
-                         month: 'long'
-                    });
-               };
-               
-               // Send the formatted message with calculated info
-               const formattedStartDate = formatDateForMessage(startDate);
-               const formattedEndDate = formatDateForMessage(endDate);
-               
-               // This enables the StaticChat to show the exact message pattern you requested
                onApply(startDate, endDate);
           } else {
-               // Default values if dates are not selected
                onApply(null, null);
           }
-          
+
           setShowCalendar(false);
      };
 
@@ -103,7 +85,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onApply }) => {
                     onClick={() => setShowCalendar((prev) => !prev)}
                >
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                         <path d="M5 1V3M11 1V3M1 7H15M3 3H13C14.1 3 15 3.9 15 5V13C15 14.1 14.1 15 13 15H3C1.9 15 1 14.1 1 13V5C1 3.9 1.9 3 3 3Z" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                         <path d="M5 1V3M11 1V3M1 7H15M3 3H13C14.1 3 15 3.9 15 5V13C15 14.1 14.1 15 13 15H3C1.9 15 1 14.1 1 13V5C1 3.9 1.9 3 3 3Z" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     Select Dates
                </button>
@@ -148,7 +130,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onApply }) => {
                               <div className="font-medium mb-4">Fr</div>
                               <div className="font-medium mb-4">Sa</div>
                               <div className="font-medium mb-4">Su</div>
-                              
+
                               {Array(firstDayOfWeek)
                                    .fill(null)
                                    .map((_, i) => (
@@ -156,7 +138,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onApply }) => {
                                              {prevMonthDays - firstDayOfWeek + i + 1}
                                         </div>
                                    ))}
-                                   
+
                               {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((day) => {
                                    const date = new Date(currentYear, currentMonth, day);
                                    return (
@@ -169,7 +151,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onApply }) => {
                                         </button>
                                    );
                               })}
-                              
+
                               {Array(totalCells - daysInMonth - firstDayOfWeek)
                                    .fill(null)
                                    .map((_, i) => (
@@ -178,7 +160,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onApply }) => {
                                         </div>
                                    ))}
                          </div>
-                         
+
                          <div className="flex mt-4">
                               <button
                                    className="w-1/2 py-4 rounded-xl bg-blue-50 text-blue-700 font-medium"

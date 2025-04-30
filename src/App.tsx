@@ -13,7 +13,7 @@ import Payment from './pages/payments/Payments';
 import ContactUs from './pages/contact/ContactUs';
 import Layout from './Layout';
 import ChangePasswordAdmin from './pages/changePassword/AdminChangePassword';
-import Terms from './pages/legal/terms';
+import Terms from './pages/legal/Terms';
 import PrivacyPolicy from './pages/legal/PrivacyPolicy';
 
 function App() {
@@ -27,6 +27,7 @@ function App() {
           <Route path="/confirm-password" element={<PublicRoute element={<ConfirmPassword />} />} />
           <Route path="/otp-verification" element={<PublicRoute element={<OTP />} />} />
           <Route path="/chat" element={<ProtectedRoute element={<Layout><Chat /></Layout>} />} />
+          <Route path="/chat/:threadUid" element={<ProtectedRoute element={<Layout><Chat /></Layout>} />} />
           <Route path="/plan-details/:tour_id" element={<ProtectedRoute element={<Layout><PlanDetails /></Layout>} />} />
           <Route path="/bookings" element={<ProtectedRoute element={<Layout><Bookings /></Layout>} />} />
           <Route path="/payments" element={<ProtectedRoute element={<Layout><Payment /></Layout>} />} />

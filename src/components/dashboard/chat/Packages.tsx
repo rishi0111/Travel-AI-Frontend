@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Packages = () => {
      const [activeTab, setActiveTab] = useState("cheapest");
-     const [getPackages, { isLoading }] = useGetPackagesMutation();
+     const [getPackages] = useGetPackagesMutation();
      const { state, country } = useAppSelector((state) => state.tours);
      const [packages, setPackages] = useState([]);
      const navigate = useNavigate();
@@ -59,9 +59,9 @@ const Packages = () => {
                {/* tabs content */}
                {activeTab === "cheapest" && (
                     <div className="py-4 mb-[20px] px-[20px]">
-                         <div className="w-[100%] overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                         <div className="w-[100%] overflow-x-auto scrollbar-hide">
                               <div className="flex gap-[16px]">
-                                   {packages.map((destination) => (
+                                   {packages.map((destination: { id: string, image: string, tour_title: string, tour_description: string, location: { address: string }, duration: string, adult_price: string, tour_id: string }) => (
                                         <div key={destination.id} className="w-full max-w-[298px] bg-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]  cursor-pointer rounded-[12px] overflow-hidden border border-[#E5E7EB]">
                                              <div className="h-48 overflow-hidden">
                                                   <img

@@ -21,8 +21,10 @@ import { setTourDetails } from "../../store/features/tours/toursSlice";
 const PlanDetails = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const { tour_id } = useParams();
-  const { data: tourDetails, isLoading, error } = useGetPackagesByDestinationQuery(tour_id);
-  const [tourDetailsData, setTourDetailsData] = useState(null);
+  const { data: tourDetails } = useGetPackagesByDestinationQuery(tour_id);
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [tourDetailsData, setTourDetailsData] = useState<any>(null);
   const dispatch = useDispatch();
   const [showContactModal, setShowContactModal] = useState(false);
   const navigate = useNavigate();

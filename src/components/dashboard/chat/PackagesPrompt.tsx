@@ -6,21 +6,21 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 interface PackagesPromptProps {
-     featured?: any[];
-     cheapest?: any[];
+     packages: {
+          featured: { id: string, image: string, tour_title: string, tour_description: string, location: { address: string }, duration: string, adult_price: string, tour_id: string }[];
+          cheapest: { id: string, image: string, tour_title: string, tour_description: string, location: { address: string }, duration: string, adult_price: string, tour_id: string }[];
+     }
 }
 
-const PackagesPrompt: React.FC<PackagesPromptProps> = ({ packages: propPackages }) => {
+const PackagesPrompt: React.FC<PackagesPromptProps> = ({ packages: propPackages }: PackagesPromptProps) => {
      const [activeTab, setActiveTab] = useState("cheapest");
-     const [getPackages, { isLoading }] = useGetPackagesMutation();
+     const [getPackages] = useGetPackagesMutation();
      const { state, country } = useAppSelector((state) => state.tours);
-     const [packages, setPackages] = useState<any[]>([]);
      const navigate = useNavigate();
-     const { featured, cheapest } = packages
+     const { featured, cheapest } = propPackages
 
      useEffect(() => {
           if (propPackages) {
-               setPackages(propPackages);
                return;
           }
           const fetchPackages = async () => {
@@ -29,9 +29,7 @@ const PackagesPrompt: React.FC<PackagesPromptProps> = ({ packages: propPackages 
                     if (response.error) {
                          console.log(response.error, "::error");
                          return;
-                    } else {
-                         setPackages(response.data);
-                    }
+                    } 
                } catch (error) {
                     console.log(error, "::error");
                }
@@ -70,9 +68,9 @@ const PackagesPrompt: React.FC<PackagesPromptProps> = ({ packages: propPackages 
                {/* tabs content */}
                {activeTab === "cheapest" && (
                     <div className="py-4 mb-[20px] px-[20px]">
-                        {cheapest?.length > 0 ? <div className="w-[100%] overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                         {cheapest?.length > 0 ? <div className="w-[100%] overflow-x-auto scrollbar-hide" >
                               <div className="flex gap-[16px]">
-                                   {cheapest?.map((destination) => (
+                                   {cheapest?.map((destination: { id: string, image: string, tour_title: string, tour_description: string, location: { address: string }, duration: string, adult_price: string, tour_id: string }) => (
                                         <div key={destination.id} className="w-full max-w-[298px] bg-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]  cursor-pointer rounded-[12px] overflow-hidden border border-[#E5E7EB] min-w-[320px]">
                                              <div className="h-48 overflow-hidden">
                                                   <img
@@ -116,9 +114,9 @@ const PackagesPrompt: React.FC<PackagesPromptProps> = ({ packages: propPackages 
 
                {activeTab === "featured" && (
                     <div className="py-4 mb-[20px] px-[20px]">
-                         {featured?.length > 0 ? <div className="w-[100%] overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                         {featured?.length > 0 ? <div className="w-[100%] overflow-x-auto scrollbar-hide" >
                               <div className="flex gap-[16px]">
-                                   {featured?.map((destination) => (
+                                   {featured?.map((destination: { id: string, image: string, tour_title: string, tour_description: string, location: { address: string }, duration: string, adult_price: string, tour_id: string }) => (
                                         <div key={destination.id} className="w-full max-w-[298px] bg-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]  cursor-pointer rounded-[12px] overflow-hidden border border-[#E5E7EB] min-w-[320px]">
                                              <div className="h-48 overflow-hidden">
                                                   <img

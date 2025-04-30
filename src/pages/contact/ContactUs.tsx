@@ -14,12 +14,13 @@ interface ContactUsFormInputs {
 
 const ContactUs = () => {
     const [contactUs, { isLoading }] = useContactUsMutation();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm<ContactUsFormInputs>();
 
     const onSubmit = async (data: ContactUsFormInputs) => {
         try {
             const response = await contactUs(data);
             if (response.error) {
+                // @ts-expect-error error
                 toast.error(response.error.data?.msg || "An unexpected error occurred");
                 return
             }
@@ -47,12 +48,12 @@ const ContactUs = () => {
                                     <div className="mb-[10px] sm:mb-[30px]">
                                         <label className="text-[12px] sm:text-[14px] leading-[22px] font-medium text-[#636C76] mb-[5px] block">First Name</label>
                                         <input type="text" {...register('first_name', { required: true })} className="bg-white w-full border border-[#D5D5D8] rounded-[8px] py-[13px] px-[20px] text-[12px] sm:text-[14px] leading-[18px] text-[#05073C] focus:outline-none focus:border-[#05073C]" placeholder="Enter your first name" />
-                                        {errors.firstName && <span>This field is required</span>}
+                                        {errors.first_name && <span>This field is required</span>}
                                     </div>
                                     <div className="mb-[10px] sm:mb-[30px]">
                                         <label className="text-[12px] sm:text-[14px] leading-[22px] font-medium text-[#636C76] mb-[5px] block">Last Name</label>
                                         <input type="text" {...register('last_name', { required: true })} className="bg-white w-full border border-[#D5D5D8] rounded-[8px] py-[13px] px-[20px] text-[12px] sm:text-[14px] leading-[18px] text-[#05073C] focus:outline-none focus:border-[#05073C]" placeholder="Enter your last name" />
-                                        {errors.lastName && <span>This field is required</span>}
+                                        {errors.last_name && <span>This field is required</span>}
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-[10px]">
@@ -64,7 +65,7 @@ const ContactUs = () => {
                                     <div className="mb-[10px] sm:mb-[30px]">
                                         <label className="text-[12px] sm:text-[14px] leading-[22px] font-medium text-[#636C76] mb-[5px] block">Phone Number</label>
                                         <input type="text" {...register('phone', { required: true })} className="bg-white w-full border border-[#D5D5D8] rounded-[8px] py-[13px] px-[20px] text-[12px] sm:text-[14px] leading-[18px] text-[#05073C] focus:outline-none focus:border-[#05073C]" placeholder="Enter your phone number" />
-                                        {errors.phoneNumber && <span>This field is required</span>}
+                                        {errors.phone && <span>This field is required</span>}
                                     </div>
                                 </div>
                                 <div className="mb-[10px] sm:mb-[30px]">

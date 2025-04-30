@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useSendMessageMutation } from "../../../store/features/chat/chatApi";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessage, setTourDetails, clearTourDetails, threadUid as setThreadUid, setLoading } from "../../../store/features/chat/chatSlice";
+import { addMessage, clearTourDetails, threadUid as setThreadUid, setLoading } from "../../../store/features/chat/chatSlice";
 import { RootState } from "../../../store/store";
 
 const ChatInput = () => {

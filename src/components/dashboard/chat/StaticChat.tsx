@@ -20,13 +20,6 @@ interface Cities {
      id: string;
 }
 
-interface Message {
-     sender: string;
-     content: string;
-     responseType?: string;
-     tourDetails?: any[];
-}
-
 const StaticChat = () => {
      // Get messages from Redux store
      const [state, setState] = useState<Cities[]>([]);
@@ -39,7 +32,6 @@ const StaticChat = () => {
      }, [countries]);
 
      const messages = useSelector((state: RootState) => state.chat.messages);
-     const tourDetails = useSelector((state: RootState) => state.chat.tourDetails);
      const threadUid = useSelector((state: RootState) => state.chat.threadUid);
      const dispatch = useDispatch();
      const selectedCountry = useSelector((state: RootState) => state.tours.country);
@@ -59,7 +51,7 @@ const StaticChat = () => {
           const now = new Date();
           return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
      };
-     
+
      useEffect(() => {
           if (messages.length === 0 && !initialMessageSent.current) {
                dispatch(addMessage({
@@ -68,6 +60,7 @@ const StaticChat = () => {
                }));
                initialMessageSent.current = true;
           }
+          // eslint-disable-next-line react-hooks/exhaustive-deps
      }, []);
 
 
@@ -90,7 +83,8 @@ const StaticChat = () => {
      }, [selectedCountry, dispatch]);
 
      // Function to check if a message is the states selection message
-     const isStatesMessage = (message: Message) => {
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     const isStatesMessage = (message: any) => {
           return message.sender === "ai" &&
                message.content.includes("Here are the states in") &&
                message.content.includes("Please select the state you want to travel to");
@@ -107,7 +101,8 @@ const StaticChat = () => {
      };
 
      // Add a new check function to detect calendar type messages
-     const isCalendarMessage = (message: Message) => {
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     const isCalendarMessage = (message: any) => {
           return message.sender === "ai" && message.responseType === "calendar";
      };
 
@@ -229,7 +224,8 @@ const StaticChat = () => {
      console.log("messages", messages)
      return (
           <div className="w-full">
-               {messages.length > 0 && messages.map((message, index) => (
+               {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+               {messages.length > 0 && messages.map((message: any, index: number) => (
                     <div key={index}>
                          {message.sender === "ai" ? (
                               // AI Assistant Chat

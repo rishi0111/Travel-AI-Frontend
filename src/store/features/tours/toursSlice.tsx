@@ -13,6 +13,7 @@ interface ToursState {
      };
      country: string
      state: string
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
      tourDetails: any
 }
 
