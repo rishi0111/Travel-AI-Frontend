@@ -8,7 +8,7 @@ const Payments = () => {
         <div className="flex">
             <div className="md:ms-[275px] h-screen overflow-y-auto flex-1">
                 <div className=" py-[15px] sm:py-[14px] mx-auto sm:px-[30px] px-[10px] border-b border-[#E5E7EB] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
-                    <h1 className="text-[20px] sm:text-[24px] leading-[32px] font-bold text-[#05073C] max-w-[1240px] mx-auto">
+                    <h1 className="text-center lg:text-start text-[20px] sm:text-[24px] leading-[32px] font-bold text-[#05073C] max-w-[1240px] mx-auto">
                         Payments & Billing
                     </h1>
                 </div>
@@ -49,7 +49,7 @@ const Payments = () => {
                         </div>
                     </div>
                     <div className='border border-[#EBEBEE] rounded-[10px] overflow-hidden'>
-                        <div className='overflow-auto'>
+                        <div className='overflow-auto w-[calc(100vw-24px)] md:w-[calc(100vw-310px)] lg:w-[calc(100vw-338px)]'>
                             <table className='w-full whitespace-nowrap'>
                                 <thead>
                                     <tr className='bg-[#F9FAFB] border-b border-[#E5E7EB]'>

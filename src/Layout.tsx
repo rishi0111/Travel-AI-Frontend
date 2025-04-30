@@ -1,4 +1,4 @@
-import Sidebar from "./components/dashboard/Sidebar";
+import Sidebar from "./components/dashboard/sidebar/Sidebar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
      const isAuthRoute = window.location.pathname === '/' ||

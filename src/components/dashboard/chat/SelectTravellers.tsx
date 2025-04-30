@@ -5,7 +5,6 @@ import PlusIcon from "../../../assets/plus-icon.svg"
 
 const SelectTravellers = () => {
      const [showTravelerModal, setShowTravelerModal] = useState(false);
-     const [totalTravelers, setTotalTravelers] = useState(0);
      const [adults, setAdults] = useState(0);
      const [youth, setYouth] = useState(0);
      const [children, setChildren] = useState(0);
@@ -19,7 +18,7 @@ const SelectTravellers = () => {
                setChildren(children + 1);
           }
      }
-     
+
      const handleDecrement = (type: string) => {
           if (type === "adult") {
                setAdults(adults - 1);
@@ -36,7 +35,7 @@ const SelectTravellers = () => {
                     <div className="border border-[#D5D5D8] rounded-[30px] px-[13px] py-[7px] bg-white cursor-pointer flex justify-between items-center relative"
                          onClick={() => setShowTravelerModal(!showTravelerModal)}
                     >
-                         <span className="text-gray-800">{totalTravelers} Travelers</span>
+                         <span className="text-gray-800">0 Travelers</span>
                          <img src={SelectIcon} alt="Select" className={`absolute right-[18px] top-1/2 transform -translate-y-1/2 ${showTravelerModal ? "rotate-180" : ""}`} />
                     </div>
                     {showTravelerModal && (

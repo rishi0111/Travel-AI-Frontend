@@ -28,7 +28,7 @@ const Bookings = () => {
     <div className="flex">
       <div className="md:ms-[275px] h-screen overflow-y-auto flex-1">
         <div className=" py-[15px] sm:py-[14px] mx-auto sm:px-[30px] px-[10px] border-b border-[#E5E7EB] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
-          <h1 className="text-[20px] sm:text-[24px] leading-[32px] font-bold text-[#05073C] max-w-[1240px] mx-auto">
+          <h1 className="text-center lg:text-start text-[20px] sm:text-[24px] leading-[32px] font-bold text-[#05073C] max-w-[1240px] mx-auto">
             My Bookings
           </h1>
         </div>
@@ -39,7 +39,7 @@ const Bookings = () => {
 
           {/* search and filter */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-            <div className="relative">
+            <div className="relative max-w-[350px] flex-1">
               <span className="absolute inset-y-0 left-[13px] flex items-center text-gray-400">
                 <img
                   src={SearchIcon}

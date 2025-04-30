@@ -1,55 +1,109 @@
 @import "tailwindcss";
 @font-face {
-     font-family: 'Open Sans';
-     src: url('./fonts/OpenSans-ExtraBold.woff2') format('woff2'),
-         url('./fonts/OpenSans-ExtraBold.woff') format('woff');
-     font-weight: bold;
-     font-style: normal;
-     font-display: swap;
- }
- 
- @font-face {
-     font-family: 'Open Sans';
-     src: url('./fonts/OpenSans-Bold.woff2') format('woff2'),
-         url('./fonts/OpenSans-Bold.woff') format('woff');
-     font-weight: bold;
-     font-style: normal;
-     font-display: swap;
- }
- 
- @font-face {
-     font-family: 'Open Sans';
-     src: url('./fonts/OpenSans-SemiBold.woff2') format('woff2'),
-         url('./fonts/OpenSans-SemiBold.woff') format('woff');
-     font-weight: 600;
-     font-style: normal;
-     font-display: swap;
- }
- 
- @font-face {
-     font-family: 'Open Sans';
-     src: url('./fonts/OpenSans-Regular.woff2') format('woff2'),
-         url('./fonts/OpenSans-Regular.woff') format('woff');
-     font-weight: normal;
-     font-style: normal;
-     font-display: swap;
- }
- 
- @font-face {
-     font-family: 'Open Sans';
-     src: url('./fonts/OpenSans-Medium.woff2') format('woff2'),
-         url('./fonts/OpenSans-Medium.woff') format('woff');
-     font-weight: 500;
-     font-style: normal;
-     font-display: swap;
- }
- 
- 
+  font-family: "Open Sans";
+  src: url("./fonts/OpenSans-ExtraBold.woff2") format("woff2"),
+    url("./fonts/OpenSans-ExtraBold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
 
-body{
-     font-family: 'Open Sans';
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/OpenSans-Bold.woff2") format("woff2"),
+    url("./fonts/OpenSans-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/OpenSans-SemiBold.woff2") format("woff2"),
+    url("./fonts/OpenSans-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/OpenSans-Regular.woff2") format("woff2"),
+    url("./fonts/OpenSans-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/OpenSans-Medium.woff2") format("woff2"),
+    url("./fonts/OpenSans-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Open Sans";
 }
 
 .destinations-slider::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
+
+.markdown ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  padding-left: 0.5rem;
+}
+
+.markdown ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  padding-left: 0.5rem;
+}
+
+.markdown li {
+  margin-bottom: 0.25rem;
+}
+
+.markdown p {
+  margin-bottom: 0.75rem;
+}
+
+.markdown h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown h4 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown h5,
+.markdown h6 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

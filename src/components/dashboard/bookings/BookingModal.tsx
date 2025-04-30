@@ -2,7 +2,7 @@ const BookingModal = ({ setShowDetailModal }: {
      setShowDetailModal: (show: boolean) => void;
 }) => {
      return (
-          <div className="fixed inset-0 bg-[#0000004D] flex items-center justify-center z-[999] px-[10px]">
+          <div className="fixed inset-0 bg-[#0000004D] flex items-center justify-center z-[9999] px-[10px]">
                <div className="bg-white rounded-[24px] shadow-xl w-full max-w-[915px]">
                     <div className="flex justify-between items-center border-b border-gray-200 px-[15px] sm:px-6 py-[10px] sm:py-4">
                          <h3 className="text-[20px] sm:text-[24px] font-bold text-gray-900">

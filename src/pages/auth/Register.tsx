@@ -10,6 +10,7 @@ import AuthButton from '../../components/auth/AuthButton';
 import { useRegisterUserMutation } from '../../store/features/auth/authApi';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { useState } from 'react';
 
 interface RegisterFormInputs {
   username: string;
@@ -19,13 +20,15 @@ interface RegisterFormInputs {
 }
 
 const Register = () => {
-  const [registerUser] = useRegisterUserMutation();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<RegisterFormInputs>();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const password = watch("password");
   const navigate = useNavigate();
@@ -146,18 +149,22 @@ const Register = () => {
               </label>
               <div className="relative">
                 <img src={LockIcon} alt="lock" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
-                <input
-                  {...register("password", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 6,
-                      message: "Password must be at least 6 characters"
-                    }
-                  })}
-                  type="password"
-                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                  placeholder="Enter your password"
-                />
+
+                <div className='relative'>
+                  <input
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: {
+                        value: 6,
+                        message: "Password must be at least 6 characters"
+                      }
+                    })}
+                    type={showPassword ? "text" : "password"}
+                    className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
+                    placeholder="Enter your password"
+                  />
+                  <img src={showPassword ? "/eye-open.svg" : "/eye-close.svg"} alt="Eye Close" className=' cursor-pointer absolute right-5 top-0 bottom-0 my-auto w-6 h-6' onClick={() => setShowPassword(!showPassword)} />
+                </div>
               </div>
               {errors.password && (
                 <span className="text-red-500 text-sm mt-1">{errors.password.message}</span>
@@ -170,23 +177,26 @@ const Register = () => {
               </label>
               <div className="relative">
                 <img src={LockIcon} alt="lock" className='w-[30px] h-[25px] absolute sm:left-[30px] left-[15px] top-1/2 transform -translate-y-1/2' />
-                <input
-                  {...register("confirmPassword", {
-                    required: "Please confirm your password",
-                    validate: value =>
-                      value === password || "Passwords do not match"
-                  })}
-                  type="password"
-                  className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
-                  placeholder="Confirm your password"
-                />
+                <div className='relative'>
+                  <input
+                    {...register("confirmPassword", {
+                      required: "Please confirm your password",
+                      validate: value =>
+                        value === password || "Passwords do not match"
+                    })}
+                    type={showConfirmPassword ? "text" : "password"}
+                    className="w-full py-[17px] px-[18px] sm:ps-[70px] ps-[50px] text-[14px] font-semibold text-[#000000] leading-[18px] border border-[#0D9BC6] focus:outline-none placeholder:text-[#00000080] rounded-[8px]"
+                    placeholder="Confirm your password"
+                  />
+                  <img src={showConfirmPassword ? "/eye-open.svg" : "/eye-close.svg"} alt="Eye Close" className=' cursor-pointer absolute right-5 top-0 bottom-0 my-auto w-6 h-6' onClick={() => setShowConfirmPassword(!showConfirmPassword)} />
+                </div>
               </div>
               {errors.confirmPassword && (
                 <span className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</span>
               )}
             </div>
 
-            <AuthButton>SIGN UP</AuthButton>
+            <AuthButton isLoading={isLoading}>SIGN UP</AuthButton>
           </form>
 
           <SocialLogin />

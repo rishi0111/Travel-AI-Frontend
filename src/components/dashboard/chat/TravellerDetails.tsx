@@ -20,8 +20,8 @@ const TravellerDetails = () => {
                          <div className="mb-[10px] lg:mb-[20px] w-full">
                               <label className="block text-[14px] font-semibold text-[#636C76] mb-1">Gender</label>
                               <div className="relative">
-                                   <select className="rounded-[30px] border border-[#D5D5D8] bg-[#FFFFFF] py-[11.8px] px-[18px] text-[14px] leading-[18px] text-[#05073C] w-full placeholder:text-[#989EAE] focus:outline-[#0D3FC6] appearance-none">
-                                        <option value="" disabled selected>Select Gender</option>
+                                   <select defaultValue="" className="rounded-[30px] border border-[#D5D5D8] bg-[#FFFFFF] py-[11.8px] px-[18px] text-[14px] leading-[18px] text-[#05073C] w-full placeholder:text-[#989EAE] focus:outline-[#0D3FC6] appearance-none">
+                                        <option value="" disabled>Select Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                    </select>
@@ -38,8 +38,8 @@ const TravellerDetails = () => {
                          <div className="mb-[10px] lg:mb-[20px] w-full">
                               <label className="block text-[14px] font-semibold text-[#636C76] mb-1">Nationality</label>
                               <div className="relative">
-                                   <select className="rounded-[30px] border border-[#D5D5D8] bg-[#FFFFFF] py-[11.8px] px-[18px] text-[14px] leading-[18px] text-[#05073C] w-full placeholder:text-[#989EAE] focus:outline-[#0D3FC6] appearance-none">
-                                        <option value="" disabled selected>Select Nationality</option>
+                                   <select defaultValue="" className="rounded-[30px] border border-[#D5D5D8] bg-[#FFFFFF] py-[11.8px] px-[18px] text-[14px] leading-[18px] text-[#05073C] w-full placeholder:text-[#989EAE] focus:outline-[#0D3FC6] appearance-none">
+                                        <option value="" disabled>Select Nationality</option>
                                         <option value="India">India</option>
                                         <option value="USA">USA</option>
                                         <option value="UK">UK</option>

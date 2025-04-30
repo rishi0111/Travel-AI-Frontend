@@ -156,3 +156,27 @@ export const bookings = [
         type: "cancelled"
     }
 ];
+
+
+export const planOptions = [
+    {
+      id: 1,
+      name: "Overview",
+    },
+    {
+      id: 2,
+      name: "Inclusion",
+    },
+    {
+      id: 3,
+      name: "Itinerary",
+    },
+    {
+      id: 4,
+      name: "Terms",
+    },
+    {
+      id: 5,
+      name: "Reviews",
+    },
+  ];

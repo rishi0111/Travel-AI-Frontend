@@ -6,6 +6,8 @@ import LockIcon from "../../assets/lock-icon.svg";
 import AuthButton from "../../components/auth/AuthButton";
 import { useForm } from 'react-hook-form';
 import { useSetNewPasswordMutation } from "../../store/features/auth/authApi";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface ChangePasswordInputs {
   newPassword: string;
@@ -14,13 +16,23 @@ interface ChangePasswordInputs {
 
 const ConfirmPassword = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<ChangePasswordInputs>();
-  const [setNewPassword] = useSetNewPasswordMutation();
+  const [setNewPassword, { isLoading }] = useSetNewPasswordMutation();
+  const navigate = useNavigate();
+
 
   const onSubmit = async (data: ChangePasswordInputs) => {
     console.log('Password Change Data:', data);
     try {
       const response = await setNewPassword(data);
       console.log("Response: ", response)
+      if (response.error) {
+        // @ts-expect-error error
+        toast.error(response.error.data?.msg || "An unexpected error occurred");
+        return;
+      } else {
+        toast.success(response?.data?.msg || "Password changed successfully");
+        navigate("/login");
+      }
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -125,7 +137,7 @@ const ConfirmPassword = () => {
                 )}
               </div>
 
-              <AuthButton>CHANGE YOUR PASSWORD</AuthButton>
+              <AuthButton isLoading={isLoading}>CHANGE YOUR PASSWORD</AuthButton>
             </form>
           </div>
         </div>

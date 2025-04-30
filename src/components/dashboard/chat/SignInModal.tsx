@@ -7,7 +7,7 @@ import facebookIcon from '../../assets/facebook-icon.svg';
 const SignInModal = () => {
   return (
     <div>
-      <div className="w-full h-full absolute bottom-0 left-0 z-[99]">
+      <div className="w-full h-full absolute bottom-0 left-0 z-[9999]">
         <div className="bg-[#00000080] h-full w-full absolute top-0 left-0"></div>
         <div className="px-[10px] sm:px-[20px] absolute top-[50%] left-[50%] z-[100] translate-x-[-50%] translate-y-[-50%] max-w-[745px] w-full ">
             <div className="bg-white rounded-[20px] ">
