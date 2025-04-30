@@ -1,12 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { setMessages } from "../../../store/features/chat/chatSlice";
 
 const SidebarDropdown = () => {
      const navigate = useNavigate();
+     const dispatch = useDispatch();
 
      const logout = () => {
           Cookies.remove("accessToken");
           navigate("/");
+          dispatch(setMessages([]));
      }
 
      return (

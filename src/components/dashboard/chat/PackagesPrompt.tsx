@@ -3,15 +3,24 @@ import { useGetPackagesMutation } from "../../../store/features/tours/toursApi";
 import { useAppSelector } from "../../../store/hooks";
 import dummyImage from "../../../assets/plan-img1.png"
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
-const Packages = () => {
+interface PackagesPromptProps {
+     packages?: any[]; // You can type this better if you have a type for tour details
+}
+
+const PackagesPrompt: React.FC<PackagesPromptProps> = ({ packages: propPackages }) => {
      const [activeTab, setActiveTab] = useState("cheapest");
      const [getPackages, { isLoading }] = useGetPackagesMutation();
      const { state, country } = useAppSelector((state) => state.tours);
-     const [packages, setPackages] = useState([]);
+     const [packages, setPackages] = useState<any[]>([]);
      const navigate = useNavigate();
 
      useEffect(() => {
+          if (propPackages) {
+               setPackages(propPackages);
+               return;
+          }
           const fetchPackages = async () => {
                try {
                     const response = await getPackages({ country, state });
@@ -27,7 +36,7 @@ const Packages = () => {
           };
 
           fetchPackages();
-     }, [country, state, getPackages]);
+     }, [country, state, getPackages, propPackages]);
 
      const handleViewDetails = (tour_id: string) => {
           navigate(`/plan-details/${tour_id}`);
@@ -62,7 +71,7 @@ const Packages = () => {
                          <div className="w-[100%] overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
                               <div className="flex gap-[16px]">
                                    {packages.map((destination) => (
-                                        <div key={destination.id} className="w-full max-w-[298px] bg-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]  cursor-pointer rounded-[12px] overflow-hidden border border-[#E5E7EB]">
+                                        <div key={destination.id} className="w-full max-w-[298px] bg-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]  cursor-pointer rounded-[12px] overflow-hidden border border-[#E5E7EB] min-w-[320px]">
                                              <div className="h-48 overflow-hidden">
                                                   <img
                                                        src={destination.image || dummyImage}
@@ -70,25 +79,30 @@ const Packages = () => {
                                                        className="w-full h-full object-cover object-top"
                                                   />
                                              </div>
-                                             <div className="p-4 flex flex-col gap-[8px]">
-                                                  <h3 className="text-lg font-semibold">{destination.tour_title}</h3>
-                                                  <p className="text-[#4B5563] text-[14px] leading-[20px]" dangerouslySetInnerHTML={{ __html: destination.tour_description }}></p>
-                                                  <div className="flex items-center gap-[8px]">
-                                                       {/* <img src={LocationIcon} className="" /> */}
-                                                       <span className="text-[14px] text-[#4B5563]">{destination.location.address}</span>
-                                                  </div>
-                                                  <div className="flex items-center justify-between gap-[8px]">
-                                                       <div className="flex items-center gap-[8px]">
-                                                            {/* <img src={TimeIcon} className="" /> */}
-                                                            <span className="text-[14px] text-[#4B5563]">{destination.duration} days</span>
-                                                       </div>
-                                                       <div className="flex flex-col justify-end items-end">
-                                                            <span className="block text-[10px] text-[#4B5563]">Starts from:</span>
-                                                            <span className="block text-[16px] text-[#1249CC] font-bold">${destination.adult_price}</span>
-                                                       </div>
-                                                  </div>
+                                             <div className="p-4 flex flex-col gap-[8px] justify-between max-h-[300px]">
                                                   <div>
-                                                       <button className="cursor-pointer bg-[#E7ECF9] text-[#0D3FC6] rounded-[4px] text[14px] font-semibold py-[8px] px-[10px] w-full" onClick={() => handleViewDetails(destination.tour_id)}>View Details</button>
+                                                       <h3 className="text-lg font-semibold text-ellipsis line-clamp-1 mb-2">{destination.tour_title}</h3>
+                                                       <p className="ellipsis line-clamp-4 text-[#4B5563] text-[14px] leading-[20px]" dangerouslySetInnerHTML={{ __html: destination.tour_description }}></p>
+                                                       <div className="flex items-center gap-[8px]">
+                                                            {/* <img src={LocationIcon} className="" /> */}
+                                                            {/* <span className="text-[14px] text-[#4B5563]">{destination.location.address}</span> */}
+                                                       </div>
+                                                  </div>
+
+                                                  <div>
+                                                       <div className="flex items-center justify-between gap-[8px]">
+                                                            <div className="flex items-center gap-[8px]">
+                                                                 {/* <img src={TimeIcon} className="" /> */}
+                                                                 <span className="text-[14px] text-[#4B5563]">{destination.duration} days</span>
+                                                            </div>
+                                                            <div className="flex flex-col justify-end items-end">
+                                                                 <span className="block text-[10px] text-[#4B5563]">Starts from:</span>
+                                                                 <span className="block text-[16px] text-[#1249CC] font-bold">${destination.adult_price}</span>
+                                                            </div>
+                                                       </div>
+                                                       <div>
+                                                            <button className="cursor-pointer bg-[#E7ECF9] text-[#0D3FC6] rounded-[4px] text[14px] font-semibold py-[8px] px-[10px] w-full" onClick={() => handleViewDetails(destination.tour_id)}>View Details</button>
+                                                       </div>
                                                   </div>
                                              </div>
                                         </div>
@@ -105,4 +119,4 @@ const Packages = () => {
      )
 }
 
-export default Packages;
+export default PackagesPrompt;

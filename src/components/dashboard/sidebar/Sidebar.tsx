@@ -27,7 +27,7 @@ const Sidebar = () => {
       {/* Toggle Button for Mobile */}
       {isOpen ? (
         <button
-          className="absolute md:hidden flex flex-col justify-center items-center gap-[4px] top-[50px] right-[-34px] sm:right-[-34px] z-[10000] bg-[#ffffff] h-[34px] w-[34px] rounded-[0px_10px_10px_0px]"
+          className="absolute md:hidden flex flex-col justify-center items-center gap-[4px] top-[50px] right-[-34px] sm:right-[-34px] z-20 bg-[#ffffff] h-[34px] w-[34px] rounded-[0px_10px_10px_0px]"
           onClick={toggleSidebar}
         >
           <span className="block w-[20px] h-[2px] bg-black rotate-45"></span>
@@ -49,13 +49,13 @@ const Sidebar = () => {
       )}
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0  h-full w-[100%] max-w-[270px] sm:max-w-[350px] md:max-w-auto md:w-[275px] bg-white z-[1000] overflow-hidden transition-transform transform ${
+        className={`fixed top-0 left-0  h-full w-[100%] max-w-[270px] sm:max-w-[350px] md:max-w-auto md:w-[275px] bg-white z-20 overflow-hidden transition-transform transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 border-r border-gray-200`}
       >
         <div className="py-[15.5px] px-[16px] flex items-center justify-between border-b border-[#E5E7EB] gap-[10px]">
           <div className="flex items-center cursor-pointer" onClick={() => navigate("/chat")}>
-            <img src="./chat-logo.svg" alt="Logo" className="w-[162px]" />
+            <img src="/chat-logo.svg" alt="Logo" className="w-[162px]" />
           </div>
         </div>
         <div className="h-[calc(100vh-135px)] overflow-y-auto px-[16px]">

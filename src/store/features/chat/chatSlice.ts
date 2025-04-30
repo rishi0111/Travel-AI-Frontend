@@ -3,14 +3,37 @@ import { createSlice } from "@reduxjs/toolkit";
 interface Message {
      content: string;
      sender: string;
+     responseType?: string;
+     tourDetails?: any[];
+     populaDestinations?: any[];
+}
+
+interface TourDetail {
+     id: number;
+     location: {
+          id: number;
+          address: string;
+          latitude: string;
+          longitude: string;
+          zoom: number;
+     };
+     itinerary: any[];
+     inclusion_exclusions: any[];
+     // add other fields as needed
 }
 
 interface ChatState {
-     messages: Message[]
+     messages: Message[];
+     tourDetails?: TourDetail[];
+     threadUid?: string;
+     isLoading: boolean;
 }
 
 const initialState: ChatState = {
-     messages: []
+     messages: [],
+     tourDetails: undefined,
+     threadUid: undefined,
+     isLoading: false,
 };
 
 const chatSlice = createSlice({
@@ -19,9 +42,24 @@ const chatSlice = createSlice({
      reducers: {
           addMessage: (state, action) => {
                state.messages.push(action.payload);
+          },
+          setTourDetails: (state, action) => {
+               state.tourDetails = action.payload;
+          },
+          clearTourDetails: (state) => {
+               state.tourDetails = undefined;
+          },
+          threadUid: (state, action) => {
+               state.threadUid = action.payload;
+          },
+          setMessages: (state, action) => {
+               state.messages = action.payload;
+          },
+          setLoading: (state, action) => {
+               state.isLoading = action.payload;
           }
      },
 });
 
-export const { addMessage } = chatSlice.actions;
+export const { addMessage, setTourDetails, clearTourDetails, threadUid, setMessages, setLoading } = chatSlice.actions;
 export default chatSlice.reducer;

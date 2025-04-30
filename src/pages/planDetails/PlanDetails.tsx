@@ -7,13 +7,13 @@ import Overview from "../../components/dashboard/planDetails/Overview";
 import Itinerary from "../../components/dashboard/planDetails/Itinerary";
 import TermContact from "../../components/dashboard/planDetails/TermContact";
 import Reviews from "../../components/dashboard/planDetails/Reviews";
-// import ContactUsModal from "../../components/dashboard/payments/ContactUsModal";
+import ContactUsModal from "../../components/dashboard/payments/ContactUsModal";
 // import SignUpModal from "../../components/chat/SignUpModal";
 // import SignInModal from "../../components/chat/SignInModal";
 import { planOptions } from "../../utils/dummyData";
 import ImageGrid from "../../components/dashboard/planDetails/ImageGrid";
 import PriceCard from "../../components/dashboard/planDetails/PriceCard";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useGetPackagesByDestinationQuery } from "../../store/features/tours/toursApi";
 import { useDispatch } from "react-redux";
 import { setTourDetails } from "../../store/features/tours/toursSlice";
@@ -24,6 +24,8 @@ const PlanDetails = () => {
   const { data: tourDetails, isLoading, error } = useGetPackagesByDestinationQuery(tour_id);
   const [tourDetailsData, setTourDetailsData] = useState(null);
   const dispatch = useDispatch();
+  const [showContactModal, setShowContactModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (tourDetails) {
@@ -32,18 +34,22 @@ const PlanDetails = () => {
     }
   }, [tourDetails, dispatch]);
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="flex ">
 
       <div className="md:ms-[275px] h-screen overflow-y-auto flex-1">
         <div className=" py-[15px] sm:py-[44px] max-w-[1075px] mx-auto sm:px-[20px] px-[10px]">
           <div className="lg:text-start text-end">
-            <a
-              href="#"
-              className=" inline-flex items-center bg-[#E7ECF9] rounded-[8px] text-[16px] leading-[24px] font-normal text-[#05073C] mb-[8px] gap-[5px] px-[18px] py-[10px]"
+            <button
+              onClick={handleGoBack}
+              className=" inline-flex cursor-pointer items-center bg-[#E7ECF9] rounded-[8px] text-[16px] leading-[24px] font-normal text-[#05073C] mb-[8px] gap-[5px] px-[18px] py-[10px]"
             >
               <img src={BackIcon} alt="Back" className="" /> Back
-            </a>
+            </button>
           </div>
           <ImageGrid />
           <div>
@@ -79,7 +85,11 @@ const PlanDetails = () => {
                     </div>
                   </div>
                 </div>
-                <PriceCard price={tourDetailsData?.adult_price} duration={tourDetailsData?.duration} />
+                <PriceCard 
+                  price={tourDetailsData?.adult_price} 
+                  duration={tourDetailsData?.duration} 
+                  onContactClick={() => setShowContactModal(true)} 
+                />
               </div>
 
               {/* Price and Booking Info */}
@@ -134,7 +144,9 @@ const PlanDetails = () => {
           </div>
         </div>
       </div>
-      {/* <ContactUsModal /> */}
+      {showContactModal && (
+        <ContactUsModal onClose={() => setShowContactModal(false)} />
+      )}
       {/* <SignUpModal /> */}
       {/* <SignInModal /> */}
     </div>

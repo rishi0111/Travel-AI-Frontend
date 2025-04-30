@@ -1,4 +1,4 @@
-const PriceCard = ({ price, duration }: { price: number, duration: number }) => {
+const PriceCard = ({ price, duration, onContactClick }: { price: number, duration: number, onContactClick: () => void }) => {
      return (
           <div className="w-full max-w-[350px]">
                <div className="bg-[#E7ECF9] border border-[#C9D8FF] shadow-[0px_3px_8px_0px_rgba(86,121,215,0.25)] py-[26px] px-[15px] rounded-lg">
@@ -28,7 +28,10 @@ const PriceCard = ({ price, duration }: { price: number, duration: number }) => 
                          <button className="w-full py-[8px] text-[14px] cursor-pointer leading-[20px] font-normal text-white bg-[#FAB400] rounded-[4px]">
                               Book Now
                          </button>
-                         <button className="w-full py-[8px] text-[14px] cursor-pointer leading-[20px] font-normal text-white bg-[#1A339B] rounded-[4px]">
+                         <button 
+                              className="w-full py-[8px] text-[14px] cursor-pointer leading-[20px] font-normal text-white bg-[#1A339B] rounded-[4px]"
+                              onClick={onContactClick}
+                         >
                               Contact Us
                          </button>
                     </div>
