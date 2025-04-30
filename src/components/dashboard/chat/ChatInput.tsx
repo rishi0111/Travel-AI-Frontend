@@ -93,9 +93,17 @@ const ChatInput = () => {
               content: aiResponseMessage,
               sender: "ai",
               responseType: responseType,
-              populaDestinations: response?.data?.ai_response?.data
+              popularDestinations: response?.data?.ai_response?.data
             }));
-          } else {
+          } else if (responseType === "tour_packages"){
+            dispatch(addMessage({
+              content: aiResponseMessage,
+              sender: "ai",
+              responseType: responseType,
+              tourPackages: response?.data?.ai_response?.data
+            }));
+          }
+          else {
             dispatch(addMessage({
               content: aiResponseMessage,
               sender: "ai",

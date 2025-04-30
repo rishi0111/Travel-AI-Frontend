@@ -5,7 +5,8 @@ interface Message {
      sender: string;
      responseType?: string;
      tourDetails?: any[];
-     populaDestinations?: any[];
+     popularDestinations?: any[];
+     tourPackages?: any[];
 }
 
 interface TourDetail {

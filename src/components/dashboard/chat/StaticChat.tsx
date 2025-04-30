@@ -14,7 +14,7 @@ import { useSendMessageMutation } from "../../../store/features/chat/chatApi";
 import { useNavigate, useLocation } from "react-router-dom";
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-
+import InitialPopularDestinations from "./InitialPopularDestinations";
 interface Cities {
      name: string;
      id: string;
@@ -59,8 +59,7 @@ const StaticChat = () => {
           const now = new Date();
           return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
      };
-
-     // Add default welcome message when component mounts if no messages exist
+     
      useEffect(() => {
           if (messages.length === 0 && !initialMessageSent.current) {
                dispatch(addMessage({
@@ -70,6 +69,7 @@ const StaticChat = () => {
                initialMessageSent.current = true;
           }
      }, []);
+
 
      // Add user message when a country is selected
      useEffect(() => {
@@ -117,7 +117,7 @@ const StaticChat = () => {
                // Calculate the number of days
                const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 to include both start and end dates
-               
+
                // Format dates for display
                const formatDate = (date: Date) => {
                     return date.toLocaleDateString('en-US', {
@@ -125,16 +125,16 @@ const StaticChat = () => {
                          month: 'long'
                     });
                };
-               
+
                // Create the message exactly as requested
                const message = `Show me packages for ${diffDays} days from ${formatDate(startDate)} to ${formatDate(endDate)}`;
-               
+
                // Add the message to chat
                dispatch(addMessage({
                     content: message,
                     sender: "user"
                }));
-               
+
                // Create API payload
                const messagePayload: {
                     message: string;
@@ -142,23 +142,23 @@ const StaticChat = () => {
                } = {
                     message: message
                };
-               
+
                // Add thread_uid if it exists
                if (threadUid) {
                     messagePayload.thread_uid = threadUid;
                }
-               
+
                // Clear existing tour details
                dispatch(clearTourDetails());
-               
+
                // Set loading state to true before API call
                dispatch(setLoading(true));
-               
+
                // Send to API
                try {
                     const response = await sendMessage(messagePayload).unwrap();
                     const responseThreadUid = response?.data?.thread_uid;
-                    
+
                     // Update URL with thread_uid
                     if (responseThreadUid) {
                          const searchParams = new URLSearchParams(location.search);
@@ -169,15 +169,15 @@ const StaticChat = () => {
                          });
                          dispatch(setThreadUid(responseThreadUid));
                     }
-                    
+
                     // Process AI response
                     let aiResponseMessage = "";
                     let responseType = "text";
-                    
+
                     if (response.data?.ai_response?.type) {
                          responseType = response.data.ai_response.type;
                     }
-                    
+
                     if (response.data?.ai_response?.data?.text_response?.message) {
                          aiResponseMessage = response.data.ai_response.data.text_response.message;
                     }
@@ -187,7 +187,7 @@ const StaticChat = () => {
                     else if (response.data?.ai_response?.response?.message) {
                          aiResponseMessage = response.data.ai_response.response.message;
                     }
-                    
+
                     // Special handling for JSON responses with tour data
                     if (responseType === "json") {
                          dispatch(addMessage({
@@ -202,17 +202,17 @@ const StaticChat = () => {
                               sender: "ai",
                               responseType: responseType
                          }));
-                         
+
                          // Process tour details for non-JSON responses
                          const tourDetails = response.data?.ai_response?.data?.tour_details;
                          if (tourDetails && Array.isArray(tourDetails) && tourDetails.length > 0) {
                               dispatch(setTourDetails(tourDetails));
                          }
                     }
-                    
+
                } catch (error) {
                     console.error("Error sending message:", error);
-                    
+
                     dispatch(addMessage({
                          content: "Sorry, I couldn't process your request at the moment. Please try again later.",
                          sender: "ai"
@@ -226,7 +226,7 @@ const StaticChat = () => {
 
      const navigate = useNavigate();
      const location = useLocation();
-
+     console.log("messages", messages)
      return (
           <div className="w-full">
                {messages.length > 0 && messages.map((message, index) => (
@@ -240,7 +240,7 @@ const StaticChat = () => {
                                         </div>
                                         <div className="">
                                              <p className="border border-[#E5E7EB] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] bg-[#F4F4F6] rounded-[20px] rounded-es-none px-[16px] py-[15px] text-[14px] leading-[20px] text-[#1F2937] markdown">
-                                                 
+
                                                   <Markdown remarkPlugins={[remarkGfm]}>{message.content}</Markdown>
                                              </p>
                                              <p className="text-xs text-gray-500 mt-2">{formatTime()}</p>
@@ -263,7 +263,7 @@ const StaticChat = () => {
                          {index === 0 &&
                               message.sender === "ai" &&
                               message.content === "Hi, here are some popular destinations." && (
-                                   <PopularDestinations />
+                                   <InitialPopularDestinations />
                               )}
 
                          {/* Show DestinationsState based on state availability */}
@@ -286,9 +286,15 @@ const StaticChat = () => {
                               </div>
                          )}
 
-                         {message.populaDestinations && Array.isArray(message.populaDestinations) && message.populaDestinations.length > 0 && (
+                         {message.popularDestinations && Array.isArray(message?.popularDestinations) && message?.popularDestinations?.length > 0 && (
                               <div className="w-full">
-                                   <PopularDestinations packages={message.populaDestinations} />
+                                   <PopularDestinations packages={message?.popularDestinations} />
+                              </div>
+                         )}
+
+                         {message.tourPackages && (message?.tourPackages?.cheapest?.length > 0 || message?.tourPackages?.featured?.length > 0) && (
+                              <div className="w-full">
+                                   <PackagesPrompt packages={message?.tourPackages} />
                               </div>
                          )}
                     </div>

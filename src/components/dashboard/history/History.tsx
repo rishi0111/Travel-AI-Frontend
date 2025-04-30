@@ -38,7 +38,7 @@ const History = () => {
 
     if (chatHistory?.data?.messages) {
       let foundTourDetails = null;
-
+      console.log("reverseMessages", reverseMessages)
       // Parse messages
       const parsedMessages = reverseMessages?.map((msg: any) => {
         if (msg.context !== "AI") {
@@ -49,41 +49,63 @@ const History = () => {
           let responseType = "text";
           
           try {
+            // The entire message is a JSON string - parse it
             const parsed = JSON.parse(msg.message);
-            responseType = parsed?.type || "text";
-            content = parsed?.text_response?.message || parsed?.data?.text_response?.message || "";
+            console.log("parsed", parsed);
             
-            // Handle different response types appropriately
-            if (responseType === "json" && Array.isArray(parsed?.data)) {
-              // For JSON type, the tourDetails are directly in the data array
+            // Extract response type
+            responseType = parsed?.type || "text";
+            
+            // Extract content based on different possible structures
+            if (parsed?.response?.message) {
+              content = parsed.response.message;
+            } else if (parsed?.text_response?.message) {
+              content = parsed.text_response.message;
+            } else if (parsed?.data?.text_response?.message) {
+              content = parsed.data.text_response.message;
+            } else if (typeof parsed?.response === "string") {
+              content = parsed.response;
+            }
+            
+            // Handle tour details for various response types
+            if (responseType === "tour_packages" && parsed?.data) {
+              tourDetails = parsed.data;
+            } else if (responseType === "popular_destinations" && parsed?.data) {
+              tourDetails = parsed.data;
+            } else if (responseType === "json" && Array.isArray(parsed?.data)) {
               tourDetails = parsed.data;
             } else {
-              // For other types, look in standard locations
-              tourDetails =
-                parsed?.data?.tour_details ||
-                parsed?.tour_details ||
-                (parsed?.data && parsed?.data[0]?.tour_details) ||
-                null;
+              // Try to find tour details in various locations
+              tourDetails = parsed?.data?.tour_details ||
+                           parsed?.tour_details ||
+                           (parsed?.data && Array.isArray(parsed.data) ? parsed.data : null);
             }
-          } catch {
+          } catch (e) {
+            console.log("Parse error:", e);
+            // If parsing fails completely, use the raw message
             content = msg.message;
           }
-          
+
+          // Final fallback - if content is still empty, use the original message
+          if (!content || content.trim() === "") {
+            content = msg.message;
+          }
+
           if (tourDetails && Array.isArray(tourDetails) && tourDetails.length > 0) {
             foundTourDetails = tourDetails;
           }
-          
-          return { 
-            content, 
-            sender: "ai", 
+
+          return {
+            content,
+            sender: "ai",
             responseType: responseType,
-            tourDetails 
+            tourDetails
           };
         }
       });
 
-      dispatch(setMessages(parsedMessages));
-      
+      dispatch(setMessages(parsedMessages || []));
+
       // If we found tour details, set them globally
       if (foundTourDetails) {
         dispatch(setTourDetails(foundTourDetails));

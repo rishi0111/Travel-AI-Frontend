@@ -1,5 +1,5 @@
 import PlanImg from "../../../assets/plan-img1.png"
-const DestinationList = ({ destination }: { destination: any }) => {
+const DestinationList = ({ destination }: { destination: { name: string, id: string } }) => {
      return (
           <div key={destination.id} className="relative overflow-hidden rounded-2xl shadow-lg w-60 group cursor-pointer">
                <div className="relative">

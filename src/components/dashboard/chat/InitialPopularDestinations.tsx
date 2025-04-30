@@ -1,15 +1,19 @@
+import { useGetCountriesQuery } from "../../../store/features/tours/toursApi";
 import DestinationList from "./DestinationList";
 import { useDispatch, useSelector } from "react-redux";
-// import { useState } from "react";
+import { setCountry, setCountries } from "../../../store/features/tours/toursSlice";
+import { useState } from "react";
 import { addMessage, setLoading, threadUid as setThreadUid } from "../../../store/features/chat/chatSlice";
 import { useSendMessageMutation } from "../../../store/features/chat/chatApi";
 import { useNavigate, useLocation } from "react-router-dom";
 import { RootState } from "../../../store/store";
 
-const PopularDestinations = (destinations) => {
+const PopularDestinations = () => {
+     const { data: countries } = useGetCountriesQuery({});
      const dispatch = useDispatch();
      const navigate = useNavigate();
      const location = useLocation();
+     const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
      const [sendMessage] = useSendMessageMutation();
      const threadUid = useSelector((state: RootState) => state.chat.threadUid);
 
@@ -68,12 +72,13 @@ const PopularDestinations = (destinations) => {
                else if (response.data?.ai_response?.text_response?.message) {
                     aiResponseMessage = response.data.ai_response.text_response.message;
                }
-               else if (response.data?.message) {
-                    aiResponseMessage = response.data.message;
+               else if (response.data?.ai_response?.response?.message) {
+                    aiResponseMessage = response.data.ai_response.response.message;
                }
 
-               // Add AI response to chat
                if (aiResponseMessage) {
+                    console.log("API Response:", response.data?.ai_response);
+
                     if (responseType === "json") {
                          dispatch(addMessage({
                               content: aiResponseMessage,
@@ -81,7 +86,22 @@ const PopularDestinations = (destinations) => {
                               responseType: responseType,
                               tourDetails: response.data?.ai_response?.data || []
                          }));
-                    } else {
+                    } else if (responseType === "popular_destinations") {
+                         dispatch(addMessage({
+                              content: aiResponseMessage,
+                              sender: "ai",
+                              responseType: responseType,
+                              popularDestinations: response?.data?.ai_response?.data
+                         }));
+                    } else if (responseType === "tour_packages") {
+                         dispatch(addMessage({
+                              content: aiResponseMessage,
+                              sender: "ai",
+                              responseType: responseType,
+                              tourPackages: response?.data?.ai_response?.data
+                         }));
+                    }
+                    else {
                          dispatch(addMessage({
                               content: aiResponseMessage,
                               sender: "ai",
@@ -90,7 +110,7 @@ const PopularDestinations = (destinations) => {
                     }
                } else {
                     dispatch(addMessage({
-                         content: "I'm looking for packages related to " + destination,
+                         content: "I've received your message. How can I help you with your travel plans?",
                          sender: "ai"
                     }));
                }
@@ -113,13 +133,13 @@ const PopularDestinations = (destinations) => {
                <h2 className="text-[20px] leading-[24px] font-semibold mb-[20px] text-[#05073C]">Popular Destinations</h2>
                <div className="w-[100%] overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
                     <div className="flex gap-[16px]">
-                         {destinations?.packages?.length > 0 ? destinations?.packages?.map((destination: any, index: number) => (
+                         {countries?.length > 0 ? countries?.map((destination: any, index: number) => (
                               <div
                                    key={`destination-${destination.id}-${index}`}
                                    onClick={() => handleDestinationClick(destination.name)}
-                              // className={` ${selectedCountry === destination.name ? 'pointer-events-none opacity-50' : ''}`}
+                                   className={` ${selectedCountry === destination.name ? 'pointer-events-none opacity-50' : ''}`}
                               >
-                                   <DestinationList destination={destination} />
+                                   <DestinationList destination={destination} index={index} />
                               </div>
                          )) : <div className="w-full h-full flex items-center justify-center">
                               <p className="text-gray-500">No destinations found</p>
